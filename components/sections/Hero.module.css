@@ -1,0 +1,184 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(7rem, 14vh, 9rem) var(--gutter) clamp(3rem, 8vh, 5rem);
+  overflow: clip;
+}
+
+/* black canvas + a central electric-blue glow + a smooth blue wash that
+   separates the hero from the next section (Sensia's gradient-band idea) */
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* black owns the base (black -> grey); light mode gets the Supaste blue ramp */
+  background:
+    var(--hero-grad),
+    radial-gradient(60% 45% at 50% 16%, var(--color-ink-1), transparent 72%),
+    radial-gradient(42% 32% at 50% 60%, color-mix(in oklab, var(--color-signal) 30%, transparent), transparent 66%),
+    radial-gradient(95% 55% at 50% 102%, var(--color-ink-2), transparent 72%),
+    var(--color-ink);
+}
+.bgGrain { position: absolute; inset: 0; z-index: 1; }
+
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headline { margin: 0; }
+.headline .ital { color: var(--color-bone); }
+
+/* hand-drawn marker annotation under the accent word */
+.annWord {
+  position: relative;
+  display: inline-block;
+  padding-inline: 0.04em;
+}
+.ann {
+  position: absolute;
+  left: -4%;
+  width: 108%;
+  bottom: -0.16em;
+  height: 0.42em;
+  overflow: visible;
+  pointer-events: none;
+}
+.annPath {
+  stroke: var(--color-signal);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 1px 5px var(--signal-glow));
+}
+@media (prefers-reduced-motion: reduce) {
+  .annPath { stroke-dashoffset: 0 !important; }
+}
+
+.sub {
+  margin: clamp(1.2rem, 2.5vw, 1.8rem) auto 0;
+  max-width: 46ch;
+  color: var(--bone-dim);
+}
+
+.ctaRow {
+  margin-top: clamp(1.6rem, 3vw, 2.2rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+/* ── Horizontal VSL (liquid glass) ──────────────────────────────────────── */
+.vsl {
+  position: relative;
+  margin-top: clamp(2rem, 4vw, 2.8rem);
+  width: min(680px, 100%);
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  display: block;
+}
+.vslMedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) contrast(1.02); }
+.vslInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background:
+    radial-gradient(70% 90% at 50% 40%, color-mix(in oklab, var(--color-signal) 14%, transparent), transparent 60%);
+}
+.play {
+  width: 66px;
+  height: 66px;
+  border-radius: 100px;
+  display: grid;
+  place-items: center;
+  color: #06121f;
+  background: var(--color-signal);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.45) inset, 0 20px 50px -16px var(--signal-glow);
+  transition: transform 0.5s var(--ease-out);
+}
+.vsl:hover .play { transform: scale(1.07); }
+.vslLabel { font-size: 0.9rem; color: var(--bone-dim); letter-spacing: 0.01em; }
+.vslRuntime {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.4em 0.75em;
+  border-radius: 100px;
+  color: var(--color-bone);
+}
+
+/* ── Credential strip (Sensia logo-row equivalent) ──────────────────────── */
+.creds {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.2rem, 4vw, 3rem);
+}
+.cred { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+.credK { font-family: var(--font-display); font-size: 1.3rem; color: var(--color-bone); }
+.credV { font-size: 0.82rem; color: var(--bone-faint); }
+
+/* ── Modal ──────────────────────────────────────────────────────────────── */
+.dialog {
+  width: min(1040px, 94vw);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--color-ink-1);
+  color: var(--color-bone);
+  padding: 0;
+}
+.dialog::backdrop { background: rgba(3, 4, 6, 0.82); backdrop-filter: blur(10px); }
+.dialogInner { position: relative; aspect-ratio: 16 / 9; }
+.dialogInner video { width: 100%; height: 100%; border-radius: 20px; object-fit: cover; }
+.close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: var(--color-ink-2);
+  color: var(--color-bone);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.soon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: 2rem;
+}
+.soon b { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; }
+.soon span { color: var(--bone-faint); font-size: 0.9rem; }
+.soon code { color: var(--color-signal); font-family: ui-monospace, monospace; font-size: 0.85em; }

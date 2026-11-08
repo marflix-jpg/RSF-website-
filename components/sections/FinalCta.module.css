@@ -1,0 +1,25 @@
+.section {
+  position: relative;
+  text-align: center;
+  padding-block: clamp(6rem, 16vw, 12rem);
+  overflow: clip;
+  border-top: 1px solid var(--line);
+}
+.glow {
+  position: absolute;
+  left: 50%;
+  bottom: -45%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 1000px;
+  aspect-ratio: 1.6 / 1;
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-signal) 20%, transparent), transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+.inner { position: relative; z-index: 2; }
+.heading { margin: 0 auto; max-width: 18ch; }
+.body { margin: 1.6rem auto 0; max-width: 46ch; color: var(--bone-dim); }
+.cta { margin-top: 2.4rem; display: inline-flex; }
+.btnBig { padding: 1.1em 1.9em; font-size: 1.05rem; }
+.reassure { margin-top: 1.3rem; font-size: 0.85rem; color: var(--bone-faint); }

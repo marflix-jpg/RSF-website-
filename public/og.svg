@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="78%" r="62%">
+      <stop offset="0" stop-color="#2e8bff" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#2e8bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#070709"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g transform="translate(80 86)">
+    <path d="M0 28 L18 11 L30 20 L46 2" fill="none" stroke="#2e8bff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="46" cy="2" r="4.6" fill="#8fc4ff"/>
+    <text x="64" y="22" font-family="Georgia, serif" font-size="30" fill="#f3f5f9">Rahul Sports Fitness</text>
+  </g>
+
+  <text x="600" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="118" fill="#f3f5f9">Find the <tspan font-style="italic">cause.</tspan></text>
+  <text x="600" y="400" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#aab2c0">Rehab &amp; performance coaching in Dubai — out of pain, off plateaus.</text>
+</svg>

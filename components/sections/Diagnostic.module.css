@@ -1,0 +1,77 @@
+.section { padding-block: clamp(5rem, 12vw, 9rem); position: relative; }
+.grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+
+.marker { font-size: 0.8rem; color: var(--color-signal); display: block; margin-bottom: 1.1rem; }
+.heading { margin: 0; }
+.sub { margin-top: 1.3rem; color: var(--bone-dim); max-width: 42ch; }
+
+/* symptom picker */
+.picker { margin-top: 1.9rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.pill {
+  padding: 0.6em 1.1em;
+  border-radius: 100px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in oklab, var(--color-bone) 4%, transparent);
+  color: var(--bone-dim);
+  font-size: 0.9rem;
+  font-weight: 540;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.3s var(--ease-out);
+}
+.pill:hover { color: var(--color-bone); transform: translateY(-1px); }
+.pillActive {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-signal) 86%, #fff), var(--color-signal) 60%, var(--color-signal-deep));
+  box-shadow: 0 12px 28px -14px var(--signal-glow);
+}
+
+/* readout */
+.readout { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.6rem; min-height: 9.5rem; }
+.rLine { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.5rem; }
+.rKey { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bone-faint); width: 7rem; flex-shrink: 0; }
+.rFeel { font-family: var(--font-display); font-size: 1.25rem; font-weight: 620; }
+.rCause { font-family: var(--font-serif); font-style: italic; font-size: 1.45rem; color: var(--color-signal); }
+.rNote { margin-top: 1rem; color: var(--bone-dim); line-height: 1.6; max-width: 46ch; }
+
+/* scene */
+.scene {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: radial-gradient(70% 60% at 68% 22%, var(--color-ink-2), transparent 62%), var(--color-ink-1);
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+.svg { width: 100%; height: auto; max-height: 72vh; overflow: visible; }
+
+.spine { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 10; }
+.seg { fill: none; stroke: url(#segGrad); stroke-width: 4; stroke-linecap: round; filter: drop-shadow(0 0 7px var(--signal-glow)); }
+
+.node { transition: opacity 0.4s ease; }
+.nodeDim { opacity: 0.4; }
+.dot { fill: color-mix(in oklab, var(--color-bone) 12%, var(--color-ink-2)); stroke: var(--line-strong); stroke-width: 1.5; }
+.label { font-family: var(--font-sans); font-size: 14px; font-weight: 540; fill: var(--bone-faint); }
+
+/* cause node */
+.causeDot { fill: var(--color-signal); stroke: var(--color-signal-bright); stroke-width: 2; }
+.causeRing { fill: none; stroke: var(--color-signal); stroke-width: 1.5; opacity: 0.6; }
+.causeLabel { fill: var(--color-bone); font-weight: 620; }
+
+/* feel node (where it hurts) — pulsing */
+.feelDot { fill: #fff; stroke: var(--color-signal-bright); stroke-width: 2.5; }
+.feelLabel { fill: var(--color-bone); font-weight: 620; }
+.feelPulse { fill: color-mix(in oklab, var(--color-signal) 40%, transparent); transform-box: fill-box; transform-origin: center; animation: feelPulse 1.8s ease-out infinite; }
+@keyframes feelPulse { 0% { transform: scale(0.5); opacity: 0.8; } 100% { transform: scale(2.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .feelPulse { animation: none; opacity: 0.25; } }
+
+.tag {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+@media (min-width: 900px) {
+  .grid { grid-template-columns: 1.05fr 0.95fr; grid-template-areas: "copy scene"; column-gap: clamp(2.5rem, 5vw, 4.5rem); align-items: center; }
+  .copy { grid-area: copy; }
+  .scene { grid-area: scene; }
+}

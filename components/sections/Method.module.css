@@ -1,0 +1,41 @@
+.section { padding-block: clamp(5.5rem, 13vw, 10rem); }
+
+.head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: clamp(3rem, 7vw, 5rem);
+}
+.marker { font-size: 0.82rem; color: var(--color-signal); }
+.heading { margin: 0; }
+.standfirst { color: var(--bone-dim); max-width: 40ch; }
+
+.track {
+  position: relative;
+  height: 1px;
+  background: var(--line);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--color-signal-deep), var(--color-signal), var(--color-signal-bright));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.steps { display: grid; gap: clamp(2.5rem, 4vw, 2rem); }
+
+.step { display: grid; gap: 0.6rem; align-content: start; }
+.num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2.3rem, 3.6vw, 3.3rem);
+  line-height: 0.85;
+  color: var(--bone-faint);
+}
+.title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.2vw, 2rem); margin: 0.3rem 0 0; }
+.body { color: var(--bone-dim); font-size: 0.98rem; line-height: 1.55; }
+
+@media (min-width: 820px) {
+  .steps { grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); }
+}

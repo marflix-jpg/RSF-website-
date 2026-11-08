@@ -1,0 +1,78 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+.canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ── static fallback (reduced-motion / pre-mount) ───────────────────────── */
+.staticCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.clip {
+  width: 30px;
+  height: 14px;
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(180deg, #d7dbe2, #8d93a0);
+  margin-top: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+.strap {
+  width: 10px;
+  flex: 0 0 auto;
+  height: clamp(70px, 12vh, 120px);
+  background: linear-gradient(180deg, var(--color-signal-bright), var(--color-signal) 60%, var(--color-signal-deep));
+  margin-top: -2px;
+}
+.card {
+  position: relative;
+  width: min(300px, 80%);
+  aspect-ratio: 1.6 / 2.25;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--color-ink-1);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
+}
+.card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cardMeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: linear-gradient(0deg, rgba(6, 8, 15, 0.92), transparent);
+}
+.cardMeta b { font-family: var(--font-display); font-weight: 560; font-size: 1.05rem; color: #fff; }
+.cardMeta span { font-size: 0.74rem; color: var(--bone-dim); }

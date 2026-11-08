@@ -1,0 +1,19 @@
+.section { padding-block: clamp(4rem, 10vw, 7rem); }
+.head { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.marker { font-size: 0.82rem; color: var(--color-signal); display: block; margin-bottom: 1.2rem; }
+.heading { margin: 0; max-width: 16ch; }
+
+.grid { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+.card {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-strong);
+  display: grid;
+  gap: 0.7rem;
+  transition: border-color 0.4s ease;
+}
+.card:hover { border-color: var(--color-signal); }
+.index { font-family: var(--font-display); font-style: italic; color: var(--color-signal); font-size: 1.1rem; }
+.title { font-family: var(--font-display); font-size: clamp(1.5rem, 2.2vw, 1.9rem); margin: 0; line-height: 1.02; }
+.body { color: var(--bone-dim); font-size: 0.98rem; line-height: 1.55; }
+
+@media (min-width: 820px) { .grid { grid-template-columns: repeat(3, 1fr); } }
