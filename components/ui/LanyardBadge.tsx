@@ -42,8 +42,8 @@ export default function LanyardBadge() {
         imageFit="cover"
         orientation="portrait"
         finish="glossy"
-        cardColor="#0e1018"
-        strapColor="#2b6bff"
+        cardColor="#0b0e0e"
+        strapColor="#1bbcbc"
         metal="silver"
         size={0.62}
         strapLength={0.5}

@@ -17,8 +17,8 @@
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--bone-faint);
-  opacity: 0.6;
+  color: var(--bone-dim);
+  opacity: 0.75;
   pointer-events: none;
 }
 
@@ -53,8 +53,8 @@
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: var(--color-ink-1);
-  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
+  background: var(--ink-soft);
+  box-shadow: 0 30px 60px -28px rgba(11, 14, 14, 0.4);
 }
 .card img {
   position: absolute;

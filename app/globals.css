@@ -1,74 +1,74 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   RSF design system
-   Primary: Geist (clean modern sans) · Accent: Playfair Display (italic serif)
-   Royal-blue signal · dark OR light (class on <html>: .dark default, .light)
-   Glass = frosted Apple liquid glass (refraction added by lib/liquidGlass.js)
+   RSF design system — Enhance Fitness visual language
+   Every value below was measured off https://www.enhancefitness.com/en
+   (.replica/enhance/ref/blueprint.md). Do not "improve" them by eye.
+
+   One typeface: Inter, normal tracking, weights 300-800.
+   White canvas, black type, teal #1BBCBC primary, lime #D5FF00 feature block.
+   Pill buttons, big radii, frosted-white glass chips over photography.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
   --font-sans: "Inter Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-display: "Inter Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-serif: "Playfair Display Variable", Georgia, serif;
 
-  /* the Supaste blue ramp (reference) */
-  --grad-blue: linear-gradient(180deg, #1636c9 0%, #2f80ff 16%, #78d2ff 44%, rgba(255,255,255,0) 82%);
-
-  --color-signal: #2b6bff;        /* royal electric blue (ref image 3) */
-  --color-signal-bright: #7ea8ff;
-  --color-signal-deep: #1842c4;
-}
-
-/* ── Dark (default) ─────────────────────────────────────────────────────── */
-:root,
-:root.dark {
-  --color-ink: #070810;      /* near-black, faint blue */
-  --color-ink-1: #0e1018;
-  --color-ink-2: #161a24;
-  --color-bone: #f2f5fb;     /* cool near-white text */
-
-  --glass-tint-a: rgba(22, 22, 26, 0.42);
-  --glass-tint-b: rgba(12, 12, 15, 0.54);
-  --glass-hi: rgba(255, 255, 255, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-shadow: rgba(0, 0, 0, 0.5);
-
-  --footer-grad: radial-gradient(130% 120% at 50% 125%, color-mix(in oklab, var(--color-signal) 55%, transparent), transparent 60%);
-  --hero-grad: none;
-
-  color-scheme: dark;
-}
-
-/* ── Light ──────────────────────────────────────────────────────────────── */
-:root.light {
-  --color-ink: #f5f7fb;      /* soft white canvas */
-  --color-ink-1: #ffffff;
-  --color-ink-2: #eef1f7;
-  --color-bone: #0a0d16;     /* near-black text */
-
-  --glass-tint-a: rgba(255, 255, 255, 0.55);
-  --glass-tint-b: rgba(244, 247, 252, 0.62);
-  --glass-hi: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(10, 13, 22, 0.1);
-  --glass-shadow: rgba(30, 50, 110, 0.14);
-
-  --hero-grad: none;
-
-  color-scheme: light;
+  --color-signal: #1bbcbc;         /* primary teal */
+  --color-signal-bright: #4fd2d2;
+  --color-signal-deep: #159a9a;
+  --color-lime: #d5ff00;
+  --color-lime-ink: #7b9300;
 }
 
 :root {
-  --line: color-mix(in oklab, var(--color-bone) 12%, transparent);
-  --line-strong: color-mix(in oklab, var(--color-bone) 22%, transparent);
-  --bone-dim: color-mix(in oklab, var(--color-bone) 64%, transparent);
-  --bone-faint: color-mix(in oklab, var(--color-bone) 40%, transparent);
-  --signal-glow: color-mix(in oklab, var(--color-signal) 60%, transparent);
+  /* ── Surfaces ─────────────────────────────────────────────────────────── */
+  --color-ink: #ffffff;            /* page canvas (name kept: used widely) */
+  --color-ink-1: #ffffff;
+  --color-ink-2: #edfcfc;          /* teal tint panel */
+  --color-bone: #000000;           /* primary type */
 
-  --shell: min(1200px, 90vw);
-  --gutter: clamp(1.1rem, 5vw, 3rem);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+  --surface-band: #c6d2d2;         /* full-bleed CTA band */
+  --surface-footer: #e2e9e9;
+  --surface-tint: #edfcfc;
+
+  /* ── Type colours ─────────────────────────────────────────────────────── */
+  --ink-soft: #0b0e0e;
+  --ink-2: #161d1d;
+  --ink-3: #2d3939;
+  --bone-dim: #5a7272;             /* secondary copy */
+  --bone-faint: #d1d5db;           /* idle / unfilled words */
+
+  --line: #c6d2d2;
+  --line-strong: #a9baba;
+  --signal-glow: rgba(27, 188, 188, 0.35);
+
+  /* ── Glass: frosted white over photography ────────────────────────────── */
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-edge: rgba(255, 255, 255, 0.8);
+  --glass-inset: rgba(255, 255, 255, 0.2);
+  --glass-tint-a: rgba(255, 255, 255, 0.24);
+  --glass-tint-b: rgba(255, 255, 255, 0.16);
+  --glass-hi: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: rgba(11, 14, 14, 0.12);
+
+  /* ── Radii ────────────────────────────────────────────────────────────── */
+  --r-pill: 9999px;
+  --r-xl: 40px;
+  --r-lg: 24px;
+  --r-md: 16px;
+  --r-sm: 12px;
+
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+  --gutter: clamp(1rem, 0.2rem + 4vw, 9.5rem);   /* 16px → 152px */
+  --shell: min(1136px, 100vw - 2 * var(--gutter));
+  --section-y: clamp(3rem, 1.5rem + 5vw, 5.5rem);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+
+  color-scheme: light;
 }
 
 @layer base {
@@ -80,28 +80,28 @@
     color: var(--color-bone);
     font-family: var(--font-sans);
     font-optical-sizing: auto;
-    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
-    line-height: 1.6;
-    letter-spacing: -0.011em;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: normal;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: clip;
-    transition: background 0.4s ease, color 0.4s ease;
   }
 
-  /* Headings are the SANS primary; accent words switch to Playfair italic. */
+  /* Headings: Inter extrabold, normal tracking. Accent words recolour
+     rather than switching typeface — that is how Enhance marks them. */
   .font-display, h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 620;
-    line-height: 1.0;
-    letter-spacing: -0.025em;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: normal;
     text-wrap: balance;
   }
   h1 em, h2 em, h3 em, .font-display em, .ital {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-style: normal;
+    font-weight: inherit;
+    letter-spacing: normal;
+    color: var(--color-signal);
   }
 
   ::selection { background: var(--color-signal); color: #fff; }
@@ -118,87 +118,86 @@
 
   ::-webkit-scrollbar { width: 11px; height: 11px; }
   ::-webkit-scrollbar-track { background: var(--color-ink); }
-  ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; border: 3px solid var(--color-ink); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; border: 3px solid var(--color-ink); }
 }
 
-/* ── Layout ─────────────────────────────────────────────────────────────── */
+/* ── Layout ───────────────────────────────────────────────────────────────── */
 .shell { width: var(--shell); margin-inline: auto; }
-.measure { max-width: 54ch; }
+.measure { max-width: 60ch; }
 
-/* ── Type scale (sans display) — restrained, reference-sized ────────────── */
-.t-mega { font-size: clamp(2.3rem, 1.5rem + 3.4vw, 4.4rem); line-height: 1.03; }
-.t-h1   { font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3.3rem); line-height: 1.06; }
-.t-h2   { font-size: clamp(1.65rem, 1.3rem + 1.7vw, 2.6rem); line-height: 1.08; }
-.t-h3   { font-size: clamp(1.2rem, 1.05rem + 0.8vw, 1.6rem); line-height: 1.18; }
-.t-lead { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem); line-height: 1.55; letter-spacing: -0.01em; font-family: var(--font-sans); }
+/* ── Type scale (measured: 72 · 56 · 42 · 24 · 18 · 16 · 14) ─────────────── */
+.t-mega { font-size: clamp(2.625rem, 1.2rem + 5.4vw, 4.5rem); line-height: 1.1; }   /* 42 → 72 */
+.t-h1   { font-size: clamp(2.75rem, 2rem + 2.6vw, 3.5rem);    line-height: 1.12; }  /* 44 → 56 */
+.t-h2   { font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.625rem); line-height: 1.14; } /* 28 → 42 */
+.t-h3   { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);  line-height: 1.33; }  /* 20 → 24 */
+.t-lead { font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);  line-height: 1.55; font-weight: 400; color: var(--bone-dim); }
 
-/* ── Frosted Apple liquid glass (JS adds rim refraction) ────────────────── */
+/* ── Frosted white glass (their backdrop-blur card) ──────────────────────── */
 .liquid {
   position: relative;
-  background: linear-gradient(180deg, var(--glass-tint-a), var(--glass-tint-b));
-  backdrop-filter: blur(20px) saturate(1.6);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  box-shadow:
-    0 24px 60px -10px var(--glass-shadow),
-    inset 0 1px 1px var(--glass-hi),
-    inset 0 -8px 20px color-mix(in oklab, var(--glass-hi) 40%, transparent),
-    inset 0 0 0 1px var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
   isolation: isolate;
 }
 
-/* ── Buttons ────────────────────────────────────────────────────────────── */
+/* ── Buttons: pill, 10/16 padding, 16/24 regular weight ──────────────────── */
 .btn {
-  --_bg: linear-gradient(180deg, color-mix(in oklab, var(--color-signal) 86%, #fff), var(--color-signal) 55%, var(--color-signal-deep));
-  --_fg: #fff;
+  --_bg: var(--color-signal);
+  --_fg: var(--surface-tint);
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.55em;
-  padding: 0.92em 1.5em;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: normal;
   color: var(--_fg);
   background: var(--_bg);
   border: 1px solid transparent;
-  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), background 0.3s ease;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 14px 34px -14px var(--signal-glow);
-  will-change: transform;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), transform 0.16s var(--ease-out), opacity 0.2s ease;
 }
-.btn:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 22px 48px -16px var(--signal-glow); }
-.btn:active { transform: translateY(0); }
+.btn:hover { background: color-mix(in oklab, var(--_bg) 88%, #000); }
+.btn:active { transform: scale(0.97); }
+
+.btn--dark  { --_bg: #000000; --_fg: var(--surface-tint); }
+.btn--white { --_bg: #ffffff; --_fg: #000000; }
+.btn--white:hover { background: color-mix(in oklab, #ffffff 92%, #000); }
 .btn--ghost {
-  --_bg: color-mix(in oklab, var(--color-bone) 6%, transparent);
+  --_bg: transparent;
   --_fg: var(--color-bone);
-  border-color: var(--line-strong);
-  box-shadow: none;
-  backdrop-filter: blur(8px);
+  border-color: rgba(0, 0, 0, 0.2);
 }
-.btn--ghost:hover { --_bg: color-mix(in oklab, var(--color-bone) 11%, transparent); box-shadow: none; }
+.btn--ghost:hover { background: rgba(0, 0, 0, 0.04); }
 
-.sig-line { height: 1px; background: linear-gradient(90deg, transparent, var(--color-signal), transparent); }
+.sig-line { height: 1px; background: var(--line); }
 
-/* ── Grain ──────────────────────────────────────────────────────────────── */
+/* ── Grain (kept, barely-there on white) ─────────────────────────────────── */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.035;
-  mix-blend-mode: overlay;
+  opacity: 0.02;
+  mix-blend-mode: multiply;
   z-index: 1;
 }
-:root.light .grain::after { opacity: 0.02; mix-blend-mode: multiply; }
 
-/* ── Skip link ──────────────────────────────────────────────────────────── */
+/* ── Skip link ───────────────────────────────────────────────────────────── */
 .skip {
   position: fixed; top: 0.75rem; left: 0.75rem; z-index: 200;
   transform: translateY(-160%);
-  padding: 0.7rem 1.1rem; border-radius: 100px;
-  background: var(--color-signal); color: #fff; font-weight: 600;
+  padding: 0.7rem 1.1rem; border-radius: var(--r-pill);
+  background: var(--color-signal); color: var(--surface-tint); font-weight: 500;
   transition: transform 0.3s var(--ease-out);
 }
 .skip:focus { transform: translateY(0); }

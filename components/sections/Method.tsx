@@ -17,7 +17,7 @@ export default function Method() {
       });
       tl.to(`.${styles.fill}`, { scaleX: 1, ease: "none", duration: 4 }, 0);
       q(`.${styles.num}`).forEach((n, i) => {
-        tl.to(n, { color: "var(--color-signal)", duration: 0.6 }, i * 1 + 0.4);
+        tl.to(n, { color: "#1bbcbc", duration: 0.6 }, i * 1 + 0.4);
       });
     },
     { scope: root },

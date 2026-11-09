@@ -1,184 +1,206 @@
+/* Measured hero: card 1136x685 · radius 40 · pad 80/120 (mobile 32/16) ·
+   black media bed with a 20% scrim · h1 56/64 bold white · sub 24/32 regular ·
+   teal pill CTA, content vertically centred and left aligned. */
+
 .hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: clamp(7rem, 14vh, 9rem) var(--gutter) clamp(3rem, 8vh, 5rem);
-  overflow: clip;
+  padding-top: 1rem;
+  padding-bottom: var(--section-y);
 }
+.inner { display: block; }
 
-/* black canvas + a central electric-blue glow + a smooth blue wash that
-   separates the hero from the next section (Sensia's gradient-band idea) */
-.bg {
+/* ── The media card ──────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: #000;
+  min-height: clamp(520px, 62vw, 685px);
+  padding: clamp(2rem, 1rem + 5vw, 5rem) clamp(1rem, -0.6rem + 8vw, 7.5rem);
+}
+.media {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* black owns the base (black -> grey); light mode gets the Supaste blue ramp */
-  background:
-    var(--hero-grad),
-    radial-gradient(60% 45% at 50% 16%, var(--color-ink-1), transparent 72%),
-    radial-gradient(42% 32% at 50% 60%, color-mix(in oklab, var(--color-signal) 30%, transparent), transparent 66%),
-    radial-gradient(95% 55% at 50% 102%, var(--color-ink-2), transparent 72%),
-    var(--color-ink);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
 }
-.bgGrain { position: absolute; inset: 0; z-index: 1; }
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.45) 46%, rgba(0, 0, 0, 0.12) 100%),
+    rgba(0, 0, 0, 0.2);
+}
 
-.inner {
+.content {
   position: relative;
   z-index: 2;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 34rem;
 }
 
-.headline { margin: 0; }
-.headline .ital { color: var(--color-bone); }
-
-/* hand-drawn marker annotation under the accent word */
+.headline {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  text-wrap: balance;
+}
+/* accent word: teal, same typeface, with the marker stroke beneath */
 .annWord {
   position: relative;
   display: inline-block;
-  padding-inline: 0.04em;
+  color: var(--color-signal-bright);
 }
 .ann {
   position: absolute;
-  left: -4%;
-  width: 108%;
+  left: -2%;
   bottom: -0.16em;
-  height: 0.42em;
+  width: 104%;
+  height: 0.3em;
   overflow: visible;
   pointer-events: none;
 }
 .annPath {
   stroke: var(--color-signal);
-  stroke-width: 3.4;
+  stroke-width: 5;
   stroke-linecap: round;
-  stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
-  filter: drop-shadow(0 1px 5px var(--signal-glow));
-}
-@media (prefers-reduced-motion: reduce) {
-  .annPath { stroke-dashoffset: 0 !important; }
+  opacity: 0.95;
 }
 
 .sub {
-  margin: clamp(1.2rem, 2.5vw, 1.8rem) auto 0;
-  max-width: 46ch;
-  color: var(--bone-dim);
+  margin: 1.5rem 0 0;
+  color: #fff;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+  line-height: 1.34;
+  font-weight: 400;
+  max-width: 28ch;
 }
 
-.ctaRow {
-  margin-top: clamp(1.6rem, 3vw, 2.2rem);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.9rem;
-}
+.ctaRow { margin-top: 1.75rem; }
 
-/* ── Horizontal VSL (liquid glass) ──────────────────────────────────────── */
+/* ── Play chip, bottom right of the card ─────────────────────────────────── */
 .vsl {
-  position: relative;
-  margin-top: clamp(2rem, 4vw, 2.8rem);
-  width: min(680px, 100%);
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0;
-  display: block;
-}
-.vslMedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) contrast(1.02); }
-.vslInner {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
+  z-index: 2;
+  right: clamp(1rem, 0.2rem + 2.4vw, 2.5rem);
+  bottom: clamp(1rem, 0.2rem + 2.4vw, 2.5rem);
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background:
-    radial-gradient(70% 90% at 50% 40%, color-mix(in oklab, var(--color-signal) 14%, transparent), transparent 60%);
+  gap: 0.75rem;
+  padding: 10px 18px 10px 10px;
+  border: none;
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  border-radius: var(--r-pill);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.25s var(--ease-out), transform 0.16s var(--ease-out);
 }
+.vsl:hover { background: rgba(255, 255, 255, 0.3); }
+.vsl:active { transform: scale(0.97); }
+
 .play {
-  width: 66px;
-  height: 66px;
-  border-radius: 100px;
   display: grid;
   place-items: center;
-  color: #06121f;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   background: var(--color-signal);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.45) inset, 0 20px 50px -16px var(--signal-glow);
-  transition: transform 0.5s var(--ease-out);
+  color: var(--surface-tint);
+  flex: none;
 }
-.vsl:hover .play { transform: scale(1.07); }
-.vslLabel { font-size: 0.9rem; color: var(--bone-dim); letter-spacing: 0.01em; }
-.vslRuntime {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 0.4em 0.75em;
-  border-radius: 100px;
-  color: var(--color-bone);
-}
+.vslText { display: flex; flex-direction: column; line-height: 1.2; }
+.vslLabel { font-size: 0.875rem; font-weight: 600; }
+.vslRuntime { font-size: 0.75rem; color: rgba(255, 255, 255, 0.78); }
 
-/* ── Credential strip (Sensia logo-row equivalent) ──────────────────────── */
+/* ── Credentials, as tinted pills under the card ─────────────────────────── */
 .creds {
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(1.2rem, 4vw, 3rem);
+  gap: 0.5rem;
+  margin-top: 1.25rem;
 }
-.cred { display: inline-flex; align-items: baseline; gap: 0.5rem; }
-.credK { font-family: var(--font-display); font-size: 1.3rem; color: var(--color-bone); }
-.credV { font-size: 0.82rem; color: var(--bone-faint); }
+.cred {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface-tint);
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
+.credK { font-weight: 700; color: var(--color-signal-deep); white-space: nowrap; }
+.credV { color: var(--bone-dim); }
 
-/* ── Modal ──────────────────────────────────────────────────────────────── */
+/* ── VSL dialog ──────────────────────────────────────────────────────────── */
 .dialog {
-  width: min(1040px, 94vw);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--color-ink-1);
-  color: var(--color-bone);
+  width: min(960px, 92vw);
   padding: 0;
+  border: none;
+  border-radius: var(--r-lg);
+  background: transparent;
+  overflow: visible;
 }
-.dialog::backdrop { background: rgba(3, 4, 6, 0.82); backdrop-filter: blur(10px); }
-.dialogInner { position: relative; aspect-ratio: 16 / 9; }
-.dialogInner video { width: 100%; height: 100%; border-radius: 20px; object-fit: cover; }
+.dialog::backdrop { background: rgba(11, 14, 14, 0.72); backdrop-filter: blur(6px); }
+.dialogInner {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+.dialogInner video { width: 100%; height: 100%; object-fit: contain; }
 .close {
   position: absolute;
-  top: -14px;
-  right: -14px;
-  width: 42px;
-  height: 42px;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  background: var(--color-ink-2);
-  color: var(--color-bone);
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 3;
   display: grid;
   place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #000;
   cursor: pointer;
 }
 .soon {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   gap: 0.6rem;
-  text-align: center;
+  height: 100%;
   padding: 2rem;
+  text-align: center;
+  color: #fff;
+  background: var(--ink-soft);
 }
-.soon b { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; }
-.soon span { color: var(--bone-faint); font-size: 0.9rem; }
-.soon code { color: var(--color-signal); font-family: ui-monospace, monospace; font-size: 0.85em; }
+.soon b { font-size: 1.125rem; font-weight: 700; }
+.soon span { color: #9fb0b0; font-size: 0.9rem; }
+.soon code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  color: var(--color-signal);
+}
+
+@media (max-width: 640px) {
+  .card { min-height: 571px; align-items: flex-end; padding-bottom: 6.5rem; }
+  .scrim {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.8) 100%),
+      rgba(0, 0, 0, 0.2);
+  }
+  .sub { max-width: none; margin-top: 1rem; }
+  .vsl { left: clamp(1rem, 4vw, 2rem); right: auto; padding-right: 16px; }
+}

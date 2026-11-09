@@ -17,12 +17,12 @@ function initials(name: string) {
 }
 
 const avatarBg = [
-  "linear-gradient(145deg, #3b82f6, #1d3fc4)",
-  "linear-gradient(145deg, #2dd4ff, #2358e6)",
-  "linear-gradient(145deg, #7c6bff, #2b6bff)",
+  "linear-gradient(145deg, #4fd2d2, #159a9a)",
+  "linear-gradient(145deg, #1bbcbc, #0f7a7a)",
+  "linear-gradient(145deg, #7fe3e3, #1bbcbc)",
 ];
 
-// Render "What clients say after the *first month*." with a Playfair accent.
+// Render "What clients say after the *first month*." with the teal accent.
 function headingParts(s: string) {
   return s.split(/(\*[^*]+\*)/g).filter(Boolean).map((seg, i) =>
     seg.startsWith("*") && seg.endsWith("*") ? <em key={i}>{seg.slice(1, -1)}</em> : <span key={i}>{seg}</span>,

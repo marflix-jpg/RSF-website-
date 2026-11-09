@@ -1,10 +1,12 @@
+/* Measured: bar [152,20 1136x75] · radius pill · 5% black over 30% white ·
+   border 1px #ffffff80 · inset 0 0 60px #ffffff33 · blur(16px) · pad 16 24 16 40 */
+
 .wrap {
-  position: fixed;
-  top: clamp(0.75rem, 2vw, 1.4rem);
-  left: 50%;
-  transform: translateX(-50%);
+  position: sticky;
+  top: 0;
   z-index: 100;
-  width: min(1160px, calc(100vw - 2 * var(--gutter)));
+  width: 100%;
+  padding: 0.75rem var(--gutter) 0;
 }
 
 .bar {
@@ -12,66 +14,73 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.6rem 0.7rem 0.6rem 1.25rem;
-  border-radius: 20px;
-  transition: padding 0.5s var(--ease-out), border-radius 0.5s var(--ease-out);
+  width: 100%;
+  max-width: 1136px;
+  margin-inline: auto;
+  min-height: 75px;
+  padding: 16px 24px 16px 40px;
+  border-radius: var(--r-pill);
+  background:
+    linear-gradient(rgba(20, 20, 20, 0.05), rgba(20, 20, 20, 0.05)),
+    linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.4s var(--ease-out);
 }
-.stuck { padding-top: 0.45rem; padding-bottom: 0.45rem; border-radius: 16px; }
+.stuck {
+  box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.2), 0 8px 30px -12px rgba(11, 14, 14, 0.18);
+}
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
   white-space: nowrap;
+  color: #000;
 }
 .monogram {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   color: var(--color-signal);
 }
 .brandName {
   font-family: var(--font-display);
-  font-size: 1.3rem;
-  letter-spacing: -0.01em;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: normal;
   line-height: 1;
 }
-.brandName span { color: var(--bone-dim); }
+.brandName span { font-weight: 500; color: var(--bone-dim); }
 
 .links {
   display: none;
-  gap: clamp(1.1rem, 2.2vw, 2rem);
-  font-size: 0.92rem;
+  gap: 24px;
+  align-items: center;
 }
 .links a {
-  position: relative;
-  color: var(--bone-dim);
-  padding-block: 0.4rem;
-  transition: color 0.3s ease;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  font-weight: 400;
+  color: #000;
+  transition: color 0.2s ease;
 }
-.links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0.15rem;
-  height: 1px;
-  width: 100%;
-  background: var(--color-signal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s var(--ease-out);
-}
-.links a:hover { color: var(--color-bone); }
-.links a:hover::after { transform: scaleX(1); }
+.links a:hover { color: var(--color-signal); }
 
-.actions { display: flex; align-items: center; gap: 0.5rem; }
-.cta { padding: 0.72em 1.15em; font-size: 0.9rem; }
+.actions { display: flex; align-items: center; gap: 0.75rem; }
+.cta {
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
 .cta span { white-space: nowrap; }
 
 .burger {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background: transparent;
   display: grid;
   place-items: center;
@@ -80,9 +89,9 @@
 }
 .burger span {
   display: block;
-  width: 18px;
+  width: 16px;
   height: 1.6px;
-  background: var(--color-bone);
+  background: #000;
   transition: transform 0.35s var(--ease-out);
 }
 .burger[aria-expanded="true"] span:first-child { transform: translateY(3.3px) rotate(45deg); }
@@ -92,7 +101,7 @@
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: color-mix(in oklab, var(--color-ink) 92%, transparent);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(22px);
   display: flex;
   flex-direction: column;
@@ -101,7 +110,7 @@
   gap: 2rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s var(--ease-out);
 }
 .overlayOpen { opacity: 1; pointer-events: auto; }
 .overlay nav {
@@ -110,16 +119,17 @@
   align-items: center;
   gap: 1.1rem;
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 10vw, 3.4rem);
+  font-weight: 800;
+  font-size: clamp(2rem, 9vw, 2.75rem);
 }
-.overlay nav a { color: var(--color-bone); }
+.overlay nav a { color: #000; }
 
 @media (min-width: 900px) {
   .links { display: flex; }
   .burger { display: none; }
 }
 @media (max-width: 640px) {
+  .bar { padding: 12px 12px 12px 20px; min-height: 64px; }
   .brandName span { display: none; }
-  /* the burger menu and hero carry the CTA on phones; keep the bar uncramped */
   .cta { display: none; }
 }

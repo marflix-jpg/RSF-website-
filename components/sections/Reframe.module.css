@@ -1,60 +1,42 @@
+/* Measured: white section, words 72/79.2 weight 700, left aligned across the
+   1136 shell, unfilled #D1D5DB → filled #000, muted 16/24 line underneath.
+   Mobile drops the words to 42/46.2. */
+
 .section {
-  padding-block: clamp(6rem, 16vw, 12rem);
-  min-height: 82vh;
+  background: #fff;
+  padding-block: clamp(5rem, 14vw, 9rem);
+  min-height: 86vh;
   display: flex;
   align-items: center;
 }
 .inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  display: block;
+  text-align: left;
 }
 
-.marker {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.82rem;
-  color: var(--color-signal);
-  margin-bottom: clamp(1.8rem, 4vw, 2.8rem);
-}
-.marker::before {
-  content: "";
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 100px;
-  background: var(--color-signal);
-}
-
-/* the scroll-filled statement */
 .statement {
   margin: 0;
-  max-width: 20ch;
   font-family: var(--font-display);
-  font-weight: 560;
-  letter-spacing: -0.015em;
-  line-height: 1.16;
-  font-size: clamp(1.9rem, 1rem + 4vw, 3.7rem);
-  color: var(--color-bone);
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.1;
+  font-size: clamp(2.625rem, 1.2rem + 5.4vw, 4.5rem);
+  color: var(--bone-faint);
+  text-wrap: pretty;
 }
 .word {
   display: inline-block;
-  margin-right: 0.26em;
-  will-change: opacity;
+  margin-right: 0.22em;
+  color: var(--bone-faint);
+  will-change: color;
 }
-.accent {
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--color-signal);
-  padding-inline: 0.02em;
-}
+.accent { color: inherit; }
 
 .kicker {
-  margin-top: clamp(2.2rem, 5vw, 3.2rem);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-  color: var(--bone-faint);
+  display: block;
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--bone-dim);
 }

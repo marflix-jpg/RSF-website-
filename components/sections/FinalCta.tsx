@@ -1,24 +1,38 @@
-import { finalCta } from "@/lib/content";
+import { finalCta, hero } from "@/lib/content";
 import { waLink } from "@/lib/whatsapp";
-import { cn } from "@/lib/cn";
-import Magnetic from "@/components/ui/Magnetic";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import styles from "./FinalCta.module.css";
 
+// "…what's actually *limiting* you." → the starred word takes the accent.
+function headingParts(s: string) {
+  return s.split(/(\*[^*]+\*)/g).filter(Boolean).map((seg, i) =>
+    seg.startsWith("*") && seg.endsWith("*")
+      ? <em key={i} className={styles.accent}>{seg.slice(1, -1)}</em>
+      : <span key={i}>{seg}</span>,
+  );
+}
+
 export default function FinalCta() {
   return (
-    <section className={`${styles.section} grain`} id="contact">
-      <div className={styles.glow} />
+    <section className={styles.section} id="contact">
       <div className={`shell ${styles.inner}`}>
-        <h2 className={`t-h1 ${styles.heading}`}>{finalCta.heading}</h2>
-        <p className={`t-lead ${styles.body}`}>{finalCta.body}</p>
-        <div className={styles.cta}>
-          <Magnetic strength={0.4}>
-            <a className={cn("btn", styles.btnBig)} href={waLink()} target="_blank" rel="noopener">
+        <div className={styles.card}>
+          {hero.vsl.poster ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className={styles.media} src={hero.vsl.poster} alt="" />
+          ) : null}
+          <div className={styles.scrim} />
+
+          <div className={styles.strip}>
+            <div className={styles.copy}>
+              <h2 className={styles.heading}>{headingParts(finalCta.heading)}</h2>
+              <p className={styles.body}>{finalCta.body}</p>
+            </div>
+            <a className="btn btn--white" href={waLink()} target="_blank" rel="noopener">
               <WhatsAppIcon />
               {finalCta.cta}
             </a>
-          </Magnetic>
+          </div>
         </div>
         <p className={styles.reassure}>{finalCta.reassurance}</p>
       </div>

@@ -36,7 +36,7 @@ export const nav = [
 
 /* ── HERO ───────────────────────────────────────────────────────────────── */
 export const hero = {
-  // Short, centered. A word wrapped in *asterisks* renders in Playfair italic.
+  // A word wrapped in *asterisks* renders in the teal accent.
   headline: "Find the *cause*.",
   standfirst:
     "Rahul coaches people in Dubai out of pain and off plateaus. He works out why it's happening, then fixes it for good.",
@@ -44,7 +44,7 @@ export const hero = {
   // Horizontal 16:9 VSL. Empty src shows the production state.
   vsl: {
     src: "", // ⚠ PLACEHOLDER — /video/vsl.mp4 or a Mux/YouTube URL
-    poster: "", // ⚠ PLACEHOLDER — /img/hero-poster.jpg
+    poster: "/img/rahul-portrait.webp",
     runtime: "90 sec",
     label: "Watch Rahul explain",
   },

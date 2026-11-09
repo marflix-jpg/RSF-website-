@@ -1,91 +1,86 @@
-.section { padding-block: clamp(5rem, 12vw, 9rem); position: relative; }
+/* Their testimonial band: a tinted strip carrying rounded cards, teal stars,
+   name + role beneath. Radius 24, hairline, no heavy shadows. */
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+  background: var(--surface-tint);
+}
 
 .head {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  gap: 1.25rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
 }
-.marker { font-size: 0.8rem; color: var(--color-signal); display: block; margin-bottom: 1rem; }
-.heading { margin: 0; max-width: 18ch; }
+.marker {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  line-height: 1.56;
+  font-weight: 700;
+  color: var(--color-signal-deep);
+}
+.heading { margin: 0; max-width: 20ch; color: #000; }
 
 .agg {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.6rem 1rem;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  background: color-mix(in oklab, var(--color-bone) 3%, transparent);
+  padding: 10px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: #fff;
 }
 .aggStars { display: inline-flex; gap: 2px; color: var(--color-signal); }
-.aggText { font-size: 0.86rem; color: var(--bone-dim); }
-.aggText b { color: var(--color-bone); font-weight: 600; }
+.aggText { font-size: 0.875rem; color: var(--bone-dim); }
+.aggText b { color: #000; font-weight: 700; }
 
-.grid { display: grid; gap: clamp(1rem, 2.5vw, 1.5rem); }
+.grid { display: grid; gap: 1rem; }
 
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  padding: clamp(1.5rem, 2.6vw, 2rem);
-  border-radius: 20px;
-  border: 1px solid var(--line);
-  background: var(--color-ink-1);
+  gap: 1rem;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border-radius: var(--r-lg);
+  background: #fff;
   overflow: hidden;
-  transition: transform 0.5s var(--ease-out), border-color 0.4s ease, box-shadow 0.5s var(--ease-out);
+  transition: transform 0.3s var(--ease-out);
 }
-.card::before {
-  content: "\201C";
-  position: absolute;
-  top: -0.6rem;
-  right: 1rem;
-  font-family: var(--font-serif);
-  font-size: 6rem;
-  line-height: 1;
-  color: color-mix(in oklab, var(--color-signal) 16%, transparent);
-  pointer-events: none;
-}
-.card:hover {
-  transform: translateY(-5px);
-  border-color: color-mix(in oklab, var(--color-signal) 45%, transparent);
-  box-shadow: 0 30px 60px -40px var(--signal-glow);
-}
+.card:hover { transform: translateY(-3px); }
 
 .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .stars { display: inline-flex; gap: 3px; color: var(--color-signal); }
 .dur {
-  font-size: 0.72rem;
-  font-weight: 560;
-  letter-spacing: 0.02em;
+  font-size: 0.75rem;
+  font-weight: 500;
   padding: 0.35em 0.75em;
-  border-radius: 100px;
-  color: var(--color-bone);
-  border: 1px solid var(--line);
-  background: color-mix(in oklab, var(--color-bone) 4%, transparent);
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+  background: var(--surface-tint);
   white-space: nowrap;
 }
 
-.quote { font-size: 1rem; line-height: 1.55; color: var(--color-bone); position: relative; z-index: 1; }
+.quote { font-size: 1rem; line-height: 1.55; color: var(--ink-2); position: relative; z-index: 1; }
 
-.foot { display: flex; align-items: center; gap: 0.8rem; margin-top: auto; padding-top: 0.4rem; }
+.foot { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; padding-top: 0.25rem; }
 .avatar {
   width: 44px;
   height: 44px;
-  border-radius: 100px;
+  border-radius: var(--r-pill);
   display: grid;
   place-items: center;
-  font-size: 0.9rem;
-  font-weight: 650;
+  font-size: 0.875rem;
+  font-weight: 700;
   color: #fff;
   flex-shrink: 0;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
 }
 .names { display: flex; flex-direction: column; gap: 0.1rem; }
-.name { font-weight: 600; font-size: 0.95rem; }
-.role { font-size: 0.8rem; color: var(--bone-faint); }
+.name { font-weight: 700; font-size: 0.9375rem; color: #000; }
+.role { font-size: 0.8125rem; color: var(--bone-dim); }
 
-@media (min-width: 820px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 820px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

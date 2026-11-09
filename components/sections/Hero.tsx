@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { hero, credentials } from "@/lib/content";
 import { waLink } from "@/lib/whatsapp";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { useLiquidGlass } from "@/components/ui/useLiquidGlass";
 import GetStartedButton from "@/components/ui/GetStartedButton";
 import { PlayIcon } from "@/components/ui/icons";
 import styles from "./Hero.module.css";
@@ -33,21 +32,20 @@ function headlineParts(s: string) {
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const vslRef = useRef<HTMLButtonElement>(null);
   const hasVsl = Boolean(hero.vsl.src);
-  useLiquidGlass(vslRef, { radius: 24, scale: -70, chroma: 5, blur: 9, border: 0.1, saturate: 1.4 });
 
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const q = gsap.utils.selector(root);
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(q(`.${styles.headline}`), { y: 30, opacity: 0, duration: 1.1 })
-        .fromTo(q(`.${styles.annPath}`), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.55, ease: "power1.inOut" }, "-=0.35")
-        .from(q(`.${styles.sub}`), { y: 20, opacity: 0, duration: 0.9 }, "-=0.55")
-        .from(q(`.${styles.ctaRow}`), { y: 20, opacity: 0, duration: 0.8 }, "-=0.6")
-        .from(q(`.${styles.vsl}`), { y: 40, opacity: 0, scale: 0.98, duration: 1.1 }, "-=0.6")
-        .from(q(`.${styles.cred}`), { opacity: 0, y: 12, stagger: 0.08, duration: 0.6 }, "-=0.7");
+      tl.from(q(`.${styles.card}`), { y: 28, opacity: 0, duration: 0.9 })
+        .from(q(`.${styles.headline}`), { y: 24, opacity: 0, duration: 0.9 }, "-=0.5")
+        .fromTo(q(`.${styles.annPath}`), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.55, ease: "power1.inOut" }, "-=0.3")
+        .from(q(`.${styles.sub}`), { y: 18, opacity: 0, duration: 0.8 }, "-=0.55")
+        .from(q(`.${styles.ctaRow}`), { y: 18, opacity: 0, duration: 0.7 }, "-=0.55")
+        .from(q(`.${styles.vsl}`), { opacity: 0, duration: 0.6 }, "-=0.45")
+        .from(q(`.${styles.cred}`), { opacity: 0, y: 10, stagger: 0.07, duration: 0.5 }, "-=0.4");
     },
     { scope: root },
   );
@@ -60,30 +58,32 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} id="top" ref={root}>
-      <div className={styles.bg} />
-      <div className={`${styles.bgGrain} grain`} />
-
       <div className={`shell ${styles.inner}`}>
-        <h1 className={`t-mega ${styles.headline}`}>{headlineParts(hero.headline)}</h1>
-        <p className={`t-lead ${styles.sub}`}>{hero.standfirst}</p>
-
-        <div className={styles.ctaRow}>
-          <GetStartedButton href={waLink()} target="_blank" rel="noopener" />
-        </div>
-
-        <button ref={vslRef} className={`liquid ${styles.vsl}`} onClick={openVsl} aria-label={`Play: ${hero.vsl.label}`}>
-          {hasVsl && hero.vsl.poster ? (
+        <div className={styles.card}>
+          {hero.vsl.poster ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.vslMedia} src={hero.vsl.poster} alt="" />
+            <img className={styles.media} src={hero.vsl.poster} alt="" />
           ) : null}
-          <span className={styles.vslRuntime}>{hero.vsl.runtime}</span>
-          <span className={styles.vslInner}>
+          <div className={styles.scrim} />
+
+          <div className={styles.content}>
+            <h1 className={`t-h1 ${styles.headline}`}>{headlineParts(hero.headline)}</h1>
+            <p className={styles.sub}>{hero.standfirst}</p>
+            <div className={styles.ctaRow}>
+              <GetStartedButton href={waLink()} target="_blank" rel="noopener" />
+            </div>
+          </div>
+
+          <button className={styles.vsl} onClick={openVsl} aria-label={`Play: ${hero.vsl.label}`}>
             <span className={styles.play}>
-              <PlayIcon size={30} />
+              <PlayIcon size={18} />
             </span>
-            <span className={styles.vslLabel}>{hero.vsl.label}</span>
-          </span>
-        </button>
+            <span className={styles.vslText}>
+              <span className={styles.vslLabel}>{hero.vsl.label}</span>
+              <span className={styles.vslRuntime}>{hero.vsl.runtime}</span>
+            </span>
+          </button>
+        </div>
 
         <div className={styles.creds}>
           {credentials.map((c) => (

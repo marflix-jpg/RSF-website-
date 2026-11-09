@@ -34,15 +34,18 @@ export default function Reframe() {
       const q = gsap.utils.selector(root);
       const words = q(`.${styles.word}`);
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Filled colour: the accent word lands on teal, every other word on black.
+      const filled = (_i: number, el: Element) =>
+        el.querySelector(`.${styles.accent}`) ? "#1bbcbc" : "#000000";
 
       if (reduce) {
-        gsap.set(words, { opacity: 1 });
+        gsap.set(words, { color: filled });
         return;
       }
 
-      gsap.set(words, { opacity: 0.16 });
+      gsap.set(words, { color: "#d1d5db" });
       gsap.to(words, {
-        opacity: 1,
+        color: filled,
         ease: "none",
         stagger: 0.5,
         scrollTrigger: {
@@ -59,7 +62,6 @@ export default function Reframe() {
   return (
     <section className={styles.section} id="why" ref={root}>
       <div className={`shell ${styles.inner}`}>
-        <span className={styles.marker}>{reframe.lead}</span>
         <p className={styles.statement}>{buildWords(reframe.line)}</p>
         <span className={styles.kicker}>{reframe.kicker}</span>
       </div>
