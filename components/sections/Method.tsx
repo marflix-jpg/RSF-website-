@@ -19,20 +19,12 @@ export default function Method() {
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.card}`);
       if (reduce) { gsap.set(cards, { opacity: 1, clearProps: "transform" }); return; }
 
-      // fan out: cards start stacked, tilted and low, then deal into place
-      gsap.set(cards, { transformOrigin: "bottom center" });
       gsap.from(cards, {
-        opacity: 0,
-        y: 70,
-        rotateZ: (i: number) => (i - (cards.length - 1) / 2) * -5,
-        scale: 0.92,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: gridRef.current, start: "top 78%" },
+        opacity: 0, y: 48, scale: 0.96, duration: 0.6, ease: "power3.out", stagger: 0.1,
+        scrollTrigger: { trigger: gridRef.current, start: "top 80%" },
       });
       gsap.from(`.${styles.loopBack}`, {
-        opacity: 0, y: 20, duration: 0.6, ease: "power3.out",
+        opacity: 0, y: 18, duration: 0.5, ease: "power3.out",
         scrollTrigger: { trigger: gridRef.current, start: "top 60%" },
       });
     },
@@ -54,22 +46,24 @@ export default function Method() {
             return (
               <article className={`${styles.card} ${featured ? styles.featured : ""}`} key={s.n}>
                 <div className={styles.inner}>
-                  {/* folder "cover": gradient top with a glossy slab that tilts +
-                      enlarges on hover (the Framer reveal), the glass number tab
-                      and the arrow. */}
-                  <div className={styles.cover}>
-                    <span className={styles.art} aria-hidden="true">
-                      <span className={styles.artSheen} />
-                    </span>
-                    <span className={`${styles.tab} backdrop-blur-md`}>
-                      <span className={styles.num}>{pad(s.n)}</span>
-                    </span>
-                    <span className={styles.arrow} aria-hidden="true"><ArrowIcon size={16} /></span>
+                  {/* image fills the top; the folder body sits over its lower half */}
+                  <div className={styles.media}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/img/process/${pad(s.n)}.jpg`} alt="" />
                   </div>
-                  {/* folder "sheet": the body that the tab rises out of */}
-                  <div className={styles.sheet}>
-                    <h3 className={styles.title}>{s.title}</h3>
-                    <p className={styles.body}>{s.body}</p>
+
+                  <a className={`${styles.arrow} backdrop-blur-md`} href="#packages" aria-label={`Step ${s.n}: ${s.title}`}>
+                    <ArrowIcon size={16} />
+                  </a>
+
+                  {/* the folder: a masked tab + a body with its top-right rounded */}
+                  <div className={styles.folder}>
+                    <span className={styles.tab} aria-hidden="true" />
+                    <span className={styles.num}>{pad(s.n)}</span>
+                    <div className={styles.text}>
+                      <h3 className={styles.title}>{s.title}</h3>
+                      <p className={styles.body}>{s.body}</p>
+                    </div>
                   </div>
                 </div>
               </article>
