@@ -85,18 +85,32 @@ export default function Diagnostic() {
             role="img"
             aria-label={`${sym.label}: the real cause is ${sym.causeLabel}.`}
           >
-            {/* body */}
-            <g className={styles.body}>
-              <circle cx="130" cy="48" r="24" />
-              <path d="M130 72 V98" className={styles.limb} strokeWidth="14" />
-              <path d="M88 116 H172" className={styles.limb} strokeWidth="24" />
-              <path d="M92 116 L168 116 L158 282 L102 282 Z" className={styles.torso} />
-              <path d="M82 124 L70 228 L74 318" className={styles.limb} strokeWidth="16" />
-              <path d="M178 124 L190 228 L186 318" className={styles.limb} strokeWidth="16" />
-              <path d="M104 282 L100 388 L102 500" className={styles.limb} strokeWidth="28" />
-              <path d="M156 282 L160 388 L158 500" className={styles.limb} strokeWidth="28" />
-              <path d="M90 514 H118 M142 514 H172" className={styles.limb} strokeWidth="12" />
-            </g>
+            {/* body — a real front-facing render when provided, else the silhouette.
+                Drop a transparent-background PNG in public/img/ and set
+                diagnostic.bodyImage; the joint coords below are tuned to it. */}
+            {diagnostic.bodyImage ? (
+              <image
+                href={diagnostic.bodyImage}
+                className={styles.bodyImage}
+                x={6}
+                y={4}
+                width={256}
+                height={552}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            ) : (
+              <g className={styles.body}>
+                <circle cx="130" cy="48" r="24" />
+                <path d="M130 72 V98" className={styles.limb} strokeWidth="14" />
+                <path d="M88 116 H172" className={styles.limb} strokeWidth="24" />
+                <path d="M92 116 L168 116 L158 282 L102 282 Z" className={styles.torso} />
+                <path d="M82 124 L70 228 L74 318" className={styles.limb} strokeWidth="16" />
+                <path d="M178 124 L190 228 L186 318" className={styles.limb} strokeWidth="16" />
+                <path d="M104 282 L100 388 L102 500" className={styles.limb} strokeWidth="28" />
+                <path d="M156 282 L160 388 L158 500" className={styles.limb} strokeWidth="28" />
+                <path d="M90 514 H118 M142 514 H172" className={styles.limb} strokeWidth="12" />
+              </g>
+            )}
 
             {/* the cause -> symptom link */}
             <path ref={linkRef} d={link(NODES[sym.cause], NODES[sym.feel])} className={styles.link} />

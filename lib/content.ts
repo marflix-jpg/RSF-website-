@@ -140,6 +140,9 @@ export const diagnostic = {
   lead: "Find the cause",
   heading: "Where it hurts isn't where it *starts*.",
   sub: "Pick what's bothering you. Watch the chain trace back to the real cause.",
+  // A front-facing 3D body render (transparent PNG) in public/img/ shows instead
+  // of the silhouette, with the joints overlaid. Empty = silhouette.
+  bodyImage: "",
   // kinetic chain, bottom → top
   joints: ["Ankle", "Knee", "Hip", "Lower back", "Mid-back", "Shoulder"],
   symptoms: [
