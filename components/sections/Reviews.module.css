@@ -37,10 +37,10 @@
   padding-block: clamp(2rem, 5vw, 3.5rem);
   background: var(--ink-soft);
 }
-/* lighter treatment, like Enhance's bright testimonial photo, so the white/20
-   glass reads as light frost rather than dark panels */
-.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 24% 72%; filter: brightness(1.05); }
-.scrim { position: absolute; inset: 0; background: rgba(11, 14, 14, 0.3); }
+/* darker photo so the white/20 glass reads as crisp frost (same as the nav
+   glass over the dark hero), with white text popping */
+.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 24% 72%; }
+.scrim { position: absolute; inset: 0; background: rgba(11, 14, 14, 0.55); }
 
 .rows { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px; }
 .row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
