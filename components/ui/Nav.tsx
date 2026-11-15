@@ -39,7 +39,7 @@ export default function Nav() {
 
   return (
     <header className={styles.wrap}>
-      <div className={cn(styles.bar, stuck && styles.stuck)}>
+      <div className={cn("backdrop-blur-lg", styles.bar, stuck && styles.stuck)}>
         <a href="#top" className={styles.brand} aria-label={`${site.name}, home`} onClick={() => setOpen(false)}>
           <svg className={styles.monogram} viewBox="0 0 48 48" fill="none" aria-hidden>
             <path d="M8 36 L19 25 L28 31 L41 15" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />

@@ -132,15 +132,32 @@
 .t-h3   { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);  line-height: 1.33; }  /* 20 → 24 */
 .t-lead { font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);  line-height: 1.55; font-weight: 400; color: var(--bone-dim); }
 
-/* ── Frosted white glass (their backdrop-blur card) ──────────────────────── */
+/* ── Enhance glass system, extracted verbatim from enhancefitness.com ──────
+   Their three custom classes (reconstructed from the live computed styles)
+   plus the Tailwind utilities each surface stacks on top:
+
+   NAV   = .glass-backround .inset-white  + backdrop-blur-lg(16px)
+           + border-t border-b border-white/50 + rounded-full
+   CARD  = bg-white/20 .inset-white-icon  + backdrop-blur-md(12px)
+           + border-t border-b border-white/80 + rounded-3xl(24px)          */
+
+.glass-backround {
+  background:
+    linear-gradient(rgba(11, 14, 14, 0.05), rgba(11, 14, 14, 0.05)),
+    linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+}
+.inset-white { box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.2); }
+.inset-white-icon { box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.2); }
+
+/* .liquid = their CARD recipe, 1:1 */
 .liquid {
   position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
+  background: var(--glass-bg);                 /* bg-white/20  */
+  backdrop-filter: blur(12px);                 /* backdrop-blur-md */
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--glass-edge);
-  border-bottom: 1px solid var(--glass-edge);
-  box-shadow: inset 0 0 40px var(--glass-inset);
+  border-top: 1px solid var(--glass-edge);     /* border-t border-white/80 */
+  border-bottom: 1px solid var(--glass-edge);  /* border-b border-white/80 */
+  box-shadow: inset 0 0 40px var(--glass-inset); /* inset-white-icon */
   isolation: isolate;
 }
 

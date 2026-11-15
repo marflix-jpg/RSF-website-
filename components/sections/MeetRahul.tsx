@@ -15,13 +15,13 @@ export default function MeetRahul() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/img/rahul-portrait.webp" alt="Rahul Chauhan, performance and rehabilitation coach, in the gym" />
           <div className={styles.scrim} />
-          <figcaption className={styles.plate}>
+          <figcaption className={`${styles.plate} backdrop-blur-md`}>
             <span className={styles.plateName}>{about.name}</span>
             <span className={styles.plateRole}>{about.role}</span>
           </figcaption>
           <ul className={styles.chips} aria-label="Credentials">
             {credentials.slice(0, 2).map((c) => (
-              <li key={c.k}>{c.k}</li>
+              <li key={c.k} className="backdrop-blur-md">{c.k}</li>
             ))}
           </ul>
         </figure>

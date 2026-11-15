@@ -23,7 +23,7 @@ export default function FinalCta() {
           ) : null}
           <div className={styles.scrim} />
 
-          <div className={styles.strip}>
+          <div className={`${styles.strip} backdrop-blur-md`}>
             <div className={styles.copy}>
               <h2 className={styles.heading}>{headingParts(finalCta.heading)}</h2>
               <p className={styles.body}>{finalCta.body}</p>

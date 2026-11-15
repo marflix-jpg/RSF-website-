@@ -71,7 +71,7 @@ export default function Checkins() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/img/rahul-portrait.webp" alt="" />
             <div className={styles.scrim} />
-            <span className={styles.glass}>{t.personal}</span>
+            <span className={`${styles.glass} backdrop-blur-md`}>{t.personal}</span>
           </article>
 
           <article className={`${styles.tile} ${styles.line}`}>

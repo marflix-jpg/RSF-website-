@@ -39,7 +39,7 @@ function GoogleG({ size = 16 }: { size?: number }) {
 
 function Card({ r }: { r: Review }) {
   return (
-    <figure className={styles.card}>
+    <figure className={`${styles.card} backdrop-blur-md`}>
       <div className={styles.top}>
         <span className={styles.avatar} aria-hidden="true">{r.name.trim().charAt(0).toUpperCase()}</span>
         <figcaption className={styles.name}>{r.name}</figcaption>

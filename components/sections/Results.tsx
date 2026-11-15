@@ -16,8 +16,8 @@ function Compare({ pair }: { pair: ResultPair }) {
         <img className={styles.after} src={pair.after} alt={`After: ${pair.caption}`} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className={styles.before} src={pair.before} alt={`Before: ${pair.caption}`} />
-        <span className={`${styles.badge} ${styles.badgeL}`}>Before</span>
-        <span className={`${styles.badge} ${styles.badgeR}`}>After</span>
+        <span className={`${styles.badge} ${styles.badgeL} backdrop-blur-md`}>Before</span>
+        <span className={`${styles.badge} ${styles.badgeR} backdrop-blur-md`}>After</span>
         <span className={styles.handle} aria-hidden="true" />
         <input
           className={styles.range}
