@@ -1,6 +1,7 @@
-/* The method as a loop: four connected steps with a rail that draws through
-   the number badges on scroll, closing on a "round again" chip. Rail is
-   horizontal on desktop, vertical on mobile; both read --p (0→1). */
+/* The method as a row of FOLDER cards (inspired by the Framer cards-folder,
+   rebuilt in our language): a coloured cover, a frosted-glass number tab, and
+   a white "pocket" sheet rising over the cover. Last card is the lime accent.
+   Cards fan into place on scroll (GSAP) and lift on hover. */
 
 .section { padding-block: var(--section-y); background: #fff; }
 
@@ -9,47 +10,111 @@
 .heading { margin: 0; color: #000; }
 .standfirst { margin-top: 0.75rem; color: var(--bone-dim); font-size: 1.125rem; line-height: 1.55; max-width: 48ch; }
 
-/* flow holds the rail + steps; --p drives the draw */
-.flow { --p: 0; position: relative; display: grid; gap: 1rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
 
-.rail { position: absolute; background: var(--line); overflow: hidden; z-index: 0; }
-.railFill { position: absolute; inset: 0; background: var(--color-signal); transform-origin: top left; }
-
-.step {
+/* ── folder card ─────────────────────────────────────────────────────────── */
+.card { perspective: 1000px; }
+.inner {
   position: relative;
-  z-index: 1;
+  min-height: 340px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  padding: clamp(1.25rem, 2.6vw, 1.75rem);
+  box-shadow: 0 1px 2px rgba(11, 14, 14, 0.04);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  will-change: transform;
+}
+.card:hover .inner {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 50px -28px rgba(11, 14, 14, 0.3);
+}
+
+/* coloured cover (the folder's front) */
+.cover {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 148px;
+  background:
+    linear-gradient(150deg, var(--color-signal-bright) 0%, var(--color-signal) 46%, var(--color-signal-deep) 100%);
+  overflow: hidden;
+}
+/* a soft diagonal sheen on the cover */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 85% 0%, rgba(255, 255, 255, 0.35), transparent 55%);
+  pointer-events: none;
+}
+.featured .cover {
+  background: linear-gradient(150deg, #e9ff66 0%, var(--color-lime) 55%, #b9e000 100%);
+}
+
+/* frosted-glass number tab, top-left (the folder tab) */
+.tab {
+  position: absolute;
+  z-index: 3;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+}
+.num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.4rem + 1.4vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.featured .num { color: var(--ink-soft); }
+
+/* arrow top-right */
+.arrow {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-signal-deep);
+  transition: transform 0.35s var(--ease-out);
+}
+.featured .arrow { color: var(--color-lime-ink); }
+.card:hover .arrow { transform: translate(2px, -2px); }
+
+/* white "pocket" sheet rising over the cover */
+.sheet {
+  position: absolute;
+  inset: 116px 0 0 0;
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 -10px 24px -16px rgba(11, 14, 14, 0.28);
+  padding: 26px clamp(1.1rem, 2vw, 1.5rem) 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
-.badge {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 0.4rem;
-  border-radius: 50%;
-  background: var(--surface-tint);
-  color: var(--color-signal-deep);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.25rem;
-  line-height: 1;
-  box-shadow: 0 0 0 0 var(--color-signal);
-}
-.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.25; font-weight: 800; color: #000; }
+.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.22; font-weight: 800; color: #000; }
 .body { margin: 0; color: var(--bone-dim); font-size: 0.9375rem; line-height: 1.5; }
 
+/* loop-back chip */
 .loopBack {
-  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  align-self: start;
+  margin-top: 1.25rem;
   padding: 12px 20px;
   border-radius: var(--r-pill);
   background: #000;
@@ -57,39 +122,7 @@
   font-size: 0.9375rem;
   font-weight: 600;
 }
-.loopIcon {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--color-signal);
-  color: var(--surface-tint);
-}
+.loopIcon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--color-signal); color: var(--surface-tint); }
 
-/* ── mobile: vertical rail down the left of the stacked steps ─────────────── */
-@media (max-width: 899px) {
-  .flow { padding-left: 2rem; }
-  .rail { left: 27px; top: 28px; bottom: 44px; width: 2px; }
-  .railFill { transform: scaleY(var(--p)); }
-  .loopBack { margin-left: -2rem; align-self: stretch; justify-content: center; margin-top: 0.5rem; }
-}
-
-/* ── desktop: four across, rail runs horizontally through the badges ─────── */
-@media (min-width: 900px) {
-  .flow {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    padding-top: 0;
-  }
-  .rail {
-    left: calc(100% / 8);
-    right: calc(100% / 8);
-    top: calc(clamp(1.25rem, 2.6vw, 1.75rem) + 28px);
-    height: 2px;
-    width: auto;
-    bottom: auto;
-  }
-  .railFill { transform: scaleX(var(--p)); transform-origin: left center; }
-  .loopBack { grid-column: 1 / -1; justify-self: center; margin-top: 1.5rem; }
-}
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .loopBack { margin-top: 1.5rem; } }
