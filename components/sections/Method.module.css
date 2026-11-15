@@ -36,7 +36,7 @@
   inset: 0 0 auto 0;
   height: 148px;
   background:
-    linear-gradient(150deg, var(--color-signal-bright) 0%, var(--color-signal) 46%, var(--color-signal-deep) 100%);
+    linear-gradient(158deg, var(--color-signal) 0%, var(--color-signal-deep) 58%, #0a5151 100%);
   overflow: hidden;
 }
 /* a soft diagonal sheen on the cover */
@@ -44,11 +44,43 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 90% at 85% 0%, rgba(255, 255, 255, 0.35), transparent 55%);
+  background: radial-gradient(120% 90% at 85% 0%, rgba(255, 255, 255, 0.28), transparent 55%);
   pointer-events: none;
+  z-index: 2;
 }
 .featured .cover {
-  background: linear-gradient(150deg, #e9ff66 0%, var(--color-lime) 55%, #b9e000 100%);
+  background: linear-gradient(158deg, #c9f23a 0%, var(--color-lime) 52%, #a9d400 100%);
+}
+
+/* the glossy slab "artwork" — tilts + enlarges on hover (the Framer reveal) */
+.art {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 56%;
+  width: 70%;
+  aspect-ratio: 5 / 4;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #d6fbfb 0%, var(--color-signal-bright) 34%, var(--color-signal) 60%, #0b8a8a 100%);
+  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%) rotate(-5deg) scale(0.9);
+  transform-origin: center;
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.5, 1), filter 0.45s var(--ease-out);
+  will-change: transform;
+}
+.featured .art {
+  background: linear-gradient(135deg, #f4ffc0 0%, #e4ff6b 36%, var(--color-lime) 62%, #a9d400 100%);
+}
+.artSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(118deg, transparent 38%, rgba(255, 255, 255, 0.55) 50%, transparent 62%);
+}
+.card:hover .art,
+.card:focus-within .art {
+  transform: translate(-50%, -54%) rotate(-12deg) scale(1.22);
+  filter: brightness(1.05);
 }
 
 /* frosted-glass number tab, top-left (the folder tab) */

@@ -54,8 +54,13 @@ export default function Method() {
             return (
               <article className={`${styles.card} ${featured ? styles.featured : ""}`} key={s.n}>
                 <div className={styles.inner}>
-                  {/* folder "cover": gradient top with the glass number tab + arrow */}
+                  {/* folder "cover": gradient top with a glossy slab that tilts +
+                      enlarges on hover (the Framer reveal), the glass number tab
+                      and the arrow. */}
                   <div className={styles.cover}>
+                    <span className={styles.art} aria-hidden="true">
+                      <span className={styles.artSheen} />
+                    </span>
                     <span className={`${styles.tab} backdrop-blur-md`}>
                       <span className={styles.num}>{pad(s.n)}</span>
                     </span>
