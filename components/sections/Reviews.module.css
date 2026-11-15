@@ -1,19 +1,9 @@
-/* Measured testimonial band: full-bleed photo, two rows of frosted cards
-   drifting in opposite directions. Card 368x112, radius 24, bg #ffffff33,
-   1px #ffffffcc on top and bottom only, inset 0 0 40px #ffffff33, blur(12px),
-   pad 16/24. Name 16/24 semibold beside the stars, quote 14/20 weight 300,
-   clamped to two lines. Row gap 48. */
+/* Real Google reviews, shown whole. A lime rating tile leads a masonry of
+   tinted cards (radius 24). Full text, never clamped. */
 
-.section { padding-top: var(--section-y); background: #fff; }
+.section { padding-block: var(--section-y); background: #fff; }
 
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.25rem;
-  margin-bottom: clamp(2rem, 5vw, 3rem);
-}
+.head { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
 .marker {
   display: block;
   margin-bottom: 0.5rem;
@@ -22,120 +12,64 @@
   font-weight: 700;
   color: var(--color-signal);
 }
-.heading { margin: 0; max-width: 20ch; color: #000; }
+.heading { margin: 0; color: #000; max-width: 18ch; }
 
-.agg {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 10px 16px;
-  border-radius: var(--r-pill);
-  background: var(--surface-tint);
-}
-.aggStars { display: inline-flex; gap: 2px; color: var(--color-signal); }
-.aggText { font-size: 0.875rem; color: var(--bone-dim); }
-.aggText b { color: #000; font-weight: 700; }
+.columns { column-count: 1; column-gap: 8px; }
+.columns > * { break-inside: avoid; margin: 0 0 8px; }
+@media (min-width: 700px) { .columns { column-count: 2; } }
+@media (min-width: 1040px) { .columns { column-count: 3; } }
 
-/* ── The photo band ──────────────────────────────────────────────────────── */
-.band {
-  position: relative;
+/* lime rating tile */
+.summary {
+  background: var(--color-lime);
+  border-radius: var(--r-xl);
+  padding: clamp(1.5rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 440px;
-  overflow: hidden;
-  background: var(--ink-soft);
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #000;
 }
-.bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* crop low and left so this reads as gym texture, not the hero portrait again */
-  object-position: 22% 78%;
+.sumTop { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9375rem; font-weight: 700; }
+.score {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 3rem + 4vw, 6rem);
+  line-height: 1;
 }
-.scrim { position: absolute; inset: 0; background: rgba(11, 14, 14, 0.52); }
+.count { margin: 0.25rem 0 1rem; color: var(--ink-2); font-size: 0.9375rem; }
+.summary .stars { color: #000; }
 
-.rows {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.row { overflow: hidden; }
-.track {
-  display: flex;
-  width: max-content;
-  gap: 48px;
-  padding-inline: 24px;
-  animation: drift 70s linear infinite;
-}
-.trackReverse { animation-direction: reverse; }
-.clone { display: contents; }
-
-/* The set is rendered twice, so sliding half the track loops seamlessly.
-   This lands exactly only because padding-inline (2 x half a gap) sums to one
-   gap: track = 2n cards + (2n-1) gaps + 1 gap of padding, so 50% = n*(card+gap).
-   Keep that relationship if you change the gap. */
-@keyframes drift {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── The card ────────────────────────────────────────────────────────────── */
+/* review cards */
 .card {
-  flex: none;
-  width: 368px;
-  min-height: 112px;
   margin: 0;
+  background: var(--surface-tint);
+  border-radius: var(--r-lg);
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
   display: flex;
   flex-direction: column;
-  padding: 16px 24px;
-  border-radius: var(--r-lg);
-  background: var(--glass-bg);
-  border-top: 1px solid var(--glass-edge);
-  border-bottom: 1px solid var(--glass-edge);
-  box-shadow: inset 0 0 40px var(--glass-inset);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #fff;
+  gap: 0.75rem;
 }
+.top { display: flex; align-items: center; gap: 12px; }
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-signal-deep);
+  font-weight: 800;
+  font-size: 1rem;
+}
+.who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.name { font-size: 1rem; line-height: 1.4; font-weight: 700; color: #000; overflow-wrap: anywhere; }
+.sub { font-size: 0.8125rem; line-height: 1.4; color: var(--bone-dim); }
 
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 14px;
-}
-.name { font-size: 1rem; line-height: 1.5; font-weight: 600; color: #fff; min-width: 0; }
-.stars { display: inline-flex; gap: 4px; color: #fff; flex: none; }
+.meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.meta time { font-size: 0.8125rem; color: var(--bone-dim); }
+.stars { display: inline-flex; gap: 2px; color: var(--color-signal); }
 
-.quote {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  font-weight: 300;
-  color: #fff;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-}
-
-@media (max-width: 640px) {
-  .band { height: 400px; }
-  .track { gap: 16px; padding-inline: 8px; }
-  .card { width: 300px; }
-  /* a long name plus five stars will not fit 300px at full size */
-  .stars { gap: 2px; }
-  .stars svg { width: 15px; height: 15px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .track { animation: none; }
-}
+.quote { margin: 0; display: grid; gap: 0.75rem; }
+.quote p { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink-2); overflow-wrap: anywhere; }

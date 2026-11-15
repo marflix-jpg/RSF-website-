@@ -1,0 +1,58 @@
+/* VSL: one wide 16:9 card straight under the hero, same 40px radius language. */
+.section { padding-block: clamp(2rem, 5vw, 3.5rem) var(--section-y); background: #fff; }
+
+.head { display: grid; gap: 0.5rem; margin-bottom: clamp(1.25rem, 3vw, 2rem); max-width: 40rem; }
+.heading { margin: 0; color: #000; }
+.sub { color: var(--bone-dim); font-size: 1.0625rem; line-height: 1.5; margin: 0; }
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+.media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; background: #000; }
+.scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.32); }
+
+.play, .soon {
+  position: absolute;
+  left: clamp(0.75rem, 2.5vw, 2rem);
+  bottom: clamp(0.75rem, 2.5vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px 10px 10px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  text-align: left;
+}
+.play { cursor: pointer; transition: background 0.25s var(--ease-out), transform 0.16s var(--ease-out); }
+.play:hover { background: rgba(255, 255, 255, 0.3); }
+.play:active { transform: scale(0.97); }
+
+.disc {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 6vw, 56px);
+  height: clamp(44px, 6vw, 56px);
+  border-radius: 50%;
+  background: var(--color-signal);
+  color: var(--surface-tint);
+  flex: none;
+}
+.meta { display: flex; flex-direction: column; line-height: 1.25; }
+.meta b { font-size: 1rem; font-weight: 600; }
+.meta span { font-size: 0.8125rem; color: rgba(255, 255, 255, 0.85); }
+
+@media (max-width: 640px) {
+  .frame { aspect-ratio: 4 / 3; border-radius: var(--r-lg); }
+  .play, .soon { right: 0.75rem; }
+}

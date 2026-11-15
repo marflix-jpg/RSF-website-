@@ -1,10 +1,12 @@
 import Nav from "@/components/ui/Nav";
 import Hero from "@/components/sections/Hero";
+import Vsl from "@/components/sections/Vsl";
 import Reframe from "@/components/sections/Reframe";
 import MeetRahul from "@/components/sections/MeetRahul";
 import Who from "@/components/sections/WhoArc";
 import Method from "@/components/sections/Method";
 import Diagnostic from "@/components/sections/Diagnostic";
+import Checkins from "@/components/sections/Checkins";
 import Packages from "@/components/sections/Packages";
 import Results from "@/components/sections/Results";
 import Reviews from "@/components/sections/Reviews";
@@ -17,11 +19,13 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Vsl />
         <Reframe />
         <MeetRahul />
         <Who />
         <Method />
         <Diagnostic />
+        <Checkins />
         <Packages />
         <Results />
         <Reviews />

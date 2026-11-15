@@ -1,30 +1,55 @@
+"use client";
+
+import { useState } from "react";
 import { results } from "@/lib/content";
+import type { ResultPair } from "@/lib/content";
 import styles from "./Results.module.css";
 
-export default function Results() {
+/* A drag-to-reveal before/after. The range input is the real control, so it
+   works with keyboard, touch and screen readers. */
+function Compare({ pair }: { pair: ResultPair }) {
+  const [pos, setPos] = useState(50);
   return (
-    <section className={`${styles.section} grain`} id="results">
-      <div className="shell">
-        <div className={styles.head}>
-          <div>
-            <span className={styles.marker}>{results.lead}</span>
-            <h2 className={`t-h2 ${styles.heading}`}>{results.heading}</h2>
-          </div>
-          <p className={`t-lead ${styles.standfirst}`}>
-            Real before-and-afters land here as Rahul sends them. These are placeholders.
-          </p>
-        </div>
+    <figure className={styles.pair}>
+      <div className={styles.stage} style={{ ["--pos" as string]: `${pos}%` }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className={styles.after} src={pair.after} alt={`After: ${pair.caption}`} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className={styles.before} src={pair.before} alt={`Before: ${pair.caption}`} />
+        <span className={`${styles.badge} ${styles.badgeL}`}>Before</span>
+        <span className={`${styles.badge} ${styles.badgeR}`}>After</span>
+        <span className={styles.handle} aria-hidden="true" />
+        <input
+          className={styles.range}
+          type="range"
+          min={0}
+          max={100}
+          value={pos}
+          onChange={(e) => setPos(Number(e.target.value))}
+          aria-label={`Reveal before and after: ${pair.caption}`}
+        />
+      </div>
+      <figcaption className={styles.cap}>
+        <span className={styles.tag}>{pair.tag}</span>
+        <span>{pair.caption}</span>
+      </figcaption>
+    </figure>
+  );
+}
 
-        <div className={styles.tiles}>
-          {results.tiles.map((t) => (
-            <article className={styles.tile} key={t.outcome} tabIndex={0}>
-              {t.img ? <img src={t.img} alt={t.outcome} /> : null}
-              <span className={styles.tag}>{t.tag}</span>
-              <div className={styles.meta}>
-                <h3 className={styles.outcome}>{t.outcome}</h3>
-                <p className={styles.detail}>{t.detail}</p>
-              </div>
-            </article>
+export default function Results() {
+  // No photos yet means no section: an empty gallery reads as broken.
+  if (results.pairs.length === 0) return null;
+  return (
+    <section className={styles.section} id="results">
+      <div className="shell">
+        <header className={styles.head}>
+          <span className={styles.marker}>{results.lead}</span>
+          <h2 className={`t-h2 ${styles.heading}`}>{results.heading}</h2>
+        </header>
+        <div className={styles.grid}>
+          {results.pairs.map((p) => (
+            <Compare key={p.before} pair={p} />
           ))}
         </div>
       </div>

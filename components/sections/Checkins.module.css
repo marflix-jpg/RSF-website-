@@ -1,0 +1,109 @@
+/* Bento: one lime feature tile + four supporting tiles, 8px gutters,
+   40px on the feature, 24px on the rest (their radius scale). */
+
+.section { padding-block: var(--section-y); background: #fff; }
+
+.bento { display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); }
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  padding: clamp(1.25rem, 2.6vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+/* lime */
+.lime {
+  background: var(--color-lime);
+  border-radius: var(--r-xl);
+  color: #000;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  min-height: 340px;
+}
+.kicker { font-size: 0.875rem; font-weight: 700; color: var(--color-lime-ink); margin-bottom: 0.75rem; }
+.title {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 800;
+  color: #000;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.copy { margin-top: 1rem; color: var(--ink-2); line-height: 1.5; max-width: 36ch; }
+.actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
+.note { font-size: 0.875rem; color: var(--color-lime-ink); font-weight: 600; }
+
+/* tint: week strip + big number */
+.tint { background: var(--surface-tint); justify-content: space-between; gap: 1rem; }
+.week { display: flex; gap: 6px; }
+.day, .dayOn {
+  display: grid;
+  place-items: center;
+  flex: 1 1 0;
+  max-width: 36px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.day { background: #fff; color: var(--bone-dim); }
+.dayOn { background: var(--color-signal); color: var(--surface-tint); }
+.big {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+  line-height: 1;
+  color: #000;
+}
+
+/* photo */
+.photo { padding: 0; min-height: 240px; background: var(--ink-soft); }
+.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+.scrim { position: absolute; inset: 0; background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%); }
+.glass {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* line + dark text tiles */
+.line { border: 1px solid var(--line); background: #fff; justify-content: flex-end; }
+.dark { background: var(--ink-soft); color: #fff; justify-content: flex-end; }
+.h3 { margin: 0 0 0.5rem; font-size: 1.25rem; line-height: 1.25; font-weight: 800; }
+.line .h3 { color: #000; }
+.small { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--bone-dim); }
+.dark .small { color: #b9c7c7; }
+.tint .small { color: var(--ink-3); }
+
+@media (min-width: 700px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lime { grid-column: 1 / -1; }
+}
+
+@media (min-width: 1000px) {
+  .bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(240px, auto));
+  }
+  .lime  { grid-column: 1 / span 5;  grid-row: 1 / span 2; min-height: 0; }
+  .tint  { grid-column: 6 / span 3;  grid-row: 1; }
+  .photo { grid-column: 9 / span 4;  grid-row: 1; min-height: 0; }
+  .line  { grid-column: 6 / span 4;  grid-row: 2; }
+  .dark  { grid-column: 10 / span 3; grid-row: 2; }
+}

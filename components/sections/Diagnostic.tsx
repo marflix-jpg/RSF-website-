@@ -5,27 +5,24 @@ import { diagnostic } from "@/lib/content";
 import { gsap, useGSAP } from "@/lib/gsap";
 import styles from "./Diagnostic.module.css";
 
+/* Stylised body, viewBox 360 x 560. Joint nodes sit on the figure's right
+   side (and the spine), labels hang in a clean gutter at x = 240. */
 const NODES = [
-  { x: 118, y: 495 }, // 0 Ankle
-  { x: 168, y: 405 }, // 1 Knee
-  { x: 138, y: 315 }, // 2 Hip
-  { x: 188, y: 225 }, // 3 Lower back
-  { x: 150, y: 135 }, // 4 Mid-back
-  { x: 200, y: 50 },  // 5 Shoulder
+  { x: 158, y: 500 }, // 0 Ankle
+  { x: 160, y: 388 }, // 1 Knee
+  { x: 156, y: 282 }, // 2 Hip
+  { x: 130, y: 226 }, // 3 Lower back
+  { x: 130, y: 162 }, // 4 Mid-back
+  { x: 172, y: 116 }, // 5 Shoulder
 ];
+const LABEL_X = 240;
 
 type P = { x: number; y: number };
-const seg = (a: P, b: P) => {
-  const my = (a.y + b.y) / 2;
-  return `M ${a.x} ${a.y} C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-};
-const spine = () => {
-  let d = `M ${NODES[0].x} ${NODES[0].y}`;
-  for (let i = 1; i < NODES.length; i++) {
-    const p0 = NODES[i - 1], p1 = NODES[i], my = (p0.y + p1.y) / 2;
-    d += ` C ${p0.x} ${my}, ${p1.x} ${my}, ${p1.x} ${p1.y}`;
-  }
-  return d;
+// a curve from the cause to the symptom, bowing out to the right of the body
+const link = (a: P, b: P) => {
+  const bow = 46;
+  const x = Math.max(a.x, b.x) + bow;
+  return `M ${a.x} ${a.y} C ${x} ${a.y}, ${x} ${b.y}, ${b.x} ${b.y}`;
 };
 
 function headingParts(s: string) {
@@ -36,25 +33,20 @@ function headingParts(s: string) {
 
 export default function Diagnostic() {
   const root = useRef<HTMLElement>(null);
-  const segRef = useRef<SVGPathElement>(null);
-  const readoutRef = useRef<HTMLDivElement>(null);
+  const linkRef = useRef<SVGPathElement>(null);
   const [selected, setSelected] = useState(0);
   const sym = diagnostic.symptoms[selected];
 
   useGSAP(
     () => {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const path = segRef.current;
-      if (path) {
+      const path = linkRef.current;
+      if (path && !reduce) {
         const len = path.getTotalLength();
-        if (reduce) {
-          gsap.set(path, { strokeDasharray: "none", strokeDashoffset: 0 });
-        } else {
-          gsap.fromTo(path, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" });
-        }
+        gsap.fromTo(path, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" });
       }
-      if (readoutRef.current && !reduce) {
-        gsap.from(readoutRef.current.children, { y: 12, opacity: 0, duration: 0.6, stagger: 0.08, ease: "power3.out" });
+      if (!reduce) {
+        gsap.from(`.${styles.readout} > *`, { y: 10, opacity: 0, duration: 0.5, stagger: 0.07, ease: "power3.out" });
       }
     },
     { scope: root, dependencies: [selected] },
@@ -66,69 +58,91 @@ export default function Diagnostic() {
         <div className={styles.copy}>
           <span className={styles.marker}>{diagnostic.lead}</span>
           <h2 className={`t-h2 ${styles.heading}`}>{headingParts(diagnostic.heading)}</h2>
-          <p className={`t-lead ${styles.sub}`}>{diagnostic.sub}</p>
+          <p className={styles.sub}>{diagnostic.sub}</p>
 
-          <div className={styles.picker} role="tablist" aria-label="Symptom">
+          <div className={styles.picker} role="tablist" aria-label="Where does it hurt?">
             {diagnostic.symptoms.map((s, i) => (
               <button
                 key={s.label}
+                type="button"
                 role="tab"
                 aria-selected={i === selected}
                 className={`${styles.pill} ${i === selected ? styles.pillActive : ""}`}
                 onClick={() => setSelected(i)}
               >
+                <span className={styles.pillNum}>{i + 1}</span>
                 {s.label}
               </button>
             ))}
-          </div>
-
-          <div className={styles.readout} ref={readoutRef} key={selected}>
-            <div className={styles.rLine}>
-              <span className={styles.rKey}>You feel it</span>
-              <span className={styles.rFeel}>{diagnostic.joints[sym.feel]}</span>
-            </div>
-            <div className={styles.rLine}>
-              <span className={styles.rKey}>The real cause</span>
-              <span className={styles.rCause}>{sym.causeLabel}</span>
-            </div>
-            <p className={styles.rNote}>{sym.note}</p>
           </div>
         </div>
 
         <div className={styles.scene}>
           <span className={styles.tag}>Kinetic chain</span>
-          <svg className={styles.svg} viewBox="0 0 340 540" role="img" aria-label={`${sym.label}: the cause is ${sym.causeLabel}.`}>
-            <defs>
-              <linearGradient id="segGrad" x1="0" y1="1" x2="0" y2="0">
-                <stop offset="0" stopColor="var(--color-signal-deep)" />
-                <stop offset="0.5" stopColor="var(--color-signal)" />
-                <stop offset="1" stopColor="var(--color-signal-bright)" />
-              </linearGradient>
-            </defs>
+          <svg
+            className={styles.svg}
+            viewBox="0 0 360 560"
+            role="img"
+            aria-label={`${sym.label}: the real cause is ${sym.causeLabel}.`}
+          >
+            {/* body */}
+            <g className={styles.body}>
+              <circle cx="130" cy="48" r="24" />
+              <path d="M130 72 V98" className={styles.limb} strokeWidth="14" />
+              <path d="M88 116 H172" className={styles.limb} strokeWidth="24" />
+              <path d="M92 116 L168 116 L158 282 L102 282 Z" className={styles.torso} />
+              <path d="M82 124 L70 228 L74 318" className={styles.limb} strokeWidth="16" />
+              <path d="M178 124 L190 228 L186 318" className={styles.limb} strokeWidth="16" />
+              <path d="M104 282 L100 388 L102 500" className={styles.limb} strokeWidth="28" />
+              <path d="M156 282 L160 388 L158 500" className={styles.limb} strokeWidth="28" />
+              <path d="M90 514 H118 M142 514 H172" className={styles.limb} strokeWidth="12" />
+            </g>
 
-            <path d={spine()} className={styles.spine} />
-            <path ref={segRef} d={seg(NODES[sym.cause], NODES[sym.feel])} className={styles.seg} />
+            {/* the cause -> symptom link */}
+            <path ref={linkRef} d={link(NODES[sym.cause], NODES[sym.feel])} className={styles.link} />
 
             {NODES.map((n, i) => {
               const isFeel = i === sym.feel;
               const isCause = i === sym.cause;
-              const dim = !isFeel && !isCause;
+              const on = isFeel || isCause;
               return (
-                <g key={i} className={`${styles.node} ${dim ? styles.nodeDim : ""}`} transform={`translate(${n.x} ${n.y})`}>
-                  {isFeel && <circle r="9" className={styles.feelPulse} />}
-                  {isCause && <circle r="15" className={styles.causeRing} />}
-                  <circle r={isFeel || isCause ? 7 : 6} className={isFeel ? styles.feelDot : isCause ? styles.causeDot : styles.dot} />
-                  <text
-                    x="18"
-                    y="5"
-                    className={`${styles.label} ${isFeel ? styles.feelLabel : ""} ${isCause ? styles.causeLabel : ""}`}
-                  >
+                <g key={i}>
+                  <path
+                    d={`M ${n.x + 12} ${n.y} H ${LABEL_X - 8}`}
+                    className={`${styles.leader} ${on ? styles.leaderOn : ""}`}
+                  />
+                  {isCause && <circle cx={n.x} cy={n.y} r="15" className={styles.causeRing} />}
+                  {isFeel && <circle cx={n.x} cy={n.y} r="15" className={styles.feelRing} />}
+                  <circle
+                    cx={n.x}
+                    cy={n.y}
+                    r={on ? 8 : 5.5}
+                    className={isFeel ? styles.feelDot : isCause ? styles.causeDot : styles.dot}
+                  />
+                  <text x={LABEL_X} y={n.y + 5} className={`${styles.label} ${on ? styles.labelOn : ""}`}>
                     {diagnostic.joints[i]}
                   </text>
                 </g>
               );
             })}
           </svg>
+
+          <ul className={styles.legend} aria-hidden="true">
+            <li><i className={styles.keyFeel} />You feel it</li>
+            <li><i className={styles.keyCause} />The real cause</li>
+          </ul>
+        </div>
+
+        <div className={styles.readout} key={selected} aria-live="polite">
+          <div className={styles.rRow}>
+            <span className={styles.rKey}><i className={styles.keyFeel} />You feel it</span>
+            <span className={styles.rVal}>{diagnostic.joints[sym.feel]}</span>
+          </div>
+          <div className={styles.rRow}>
+            <span className={styles.rKey}><i className={styles.keyCause} />The real cause</span>
+            <span className={`${styles.rVal} ${styles.rCause}`}>{sym.causeLabel}</span>
+          </div>
+          <p className={styles.rNote}>{sym.note}</p>
         </div>
       </div>
     </section>

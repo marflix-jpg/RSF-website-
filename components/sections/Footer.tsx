@@ -1,4 +1,5 @@
-import { footer, site, nav } from "@/lib/content";
+import { footer, site, nav, checkins } from "@/lib/content";
+import google from "@/lib/google-reviews.json";
 import { waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import styles from "./Footer.module.css";
@@ -40,6 +41,12 @@ export default function Footer() {
           </a>
           <a className={styles.colHead} style={{ margin: 0 }} href={site.instagram.url} target="_blank" rel="noopener">
             @{site.instagram.handle}
+          </a>
+          <a className={styles.colHead} style={{ margin: 0 }} href={checkins.formUrl} target="_blank" rel="noopener">
+            Weekly client check-in
+          </a>
+          <a className={styles.colHead} style={{ margin: 0 }} href={google.placeUrl} target="_blank" rel="noopener">
+            Google reviews
           </a>
           <a className={styles.colHead} style={{ margin: 0 }} href={`mailto:${site.email}`}>
             {site.email}

@@ -29,3 +29,9 @@ next-env.d.ts
 _outline.txt
 AGENTS.md
 .replica/
+
+# raw media (compressed copies live in public/)
+/assets/videos/*
+/assets/photos/*
+/assets/before-after/*
+!/assets/**/.gitkeep

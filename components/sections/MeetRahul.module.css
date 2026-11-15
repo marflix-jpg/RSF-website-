@@ -1,14 +1,79 @@
-/* Mirrors their "One app. Total Freedom." block: object on the left, a column
-   of teal bold subhead + muted body on the right, tinted stat cards beneath. */
+/* Profile: a tall photo card (radius 40, like their feature cards) with a
+   frosted glass nameplate, beside the copy and a tinted stat bento. */
 
-.section { position: relative; padding-block: var(--section-y); background: #fff; }
+.section { padding-block: var(--section-y); background: #fff; }
 
-/* mobile: the stage is a tall block above the copy */
-.stage { position: relative; width: 100%; height: clamp(440px, 62vh, 600px); z-index: 1; }
-.content { position: relative; z-index: 2; margin-top: 1rem; }
-.textCol { width: 100%; }
+.grid { display: grid; gap: clamp(1.75rem, 5vw, 3rem); align-items: center; }
 
-/* ── Text ───────────────────────────────────────────────────────────────── */
+.photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--ink-soft);
+  aspect-ratio: 4 / 5;
+  max-height: 720px;
+}
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.plate {
+  position: absolute;
+  left: clamp(0.75rem, 2.5vw, 1.5rem);
+  right: clamp(0.75rem, 2.5vw, 1.5rem);
+  bottom: clamp(0.75rem, 2.5vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+}
+.plateName { font-size: 1.125rem; line-height: 1.4; font-weight: 700; }
+.plateRole { font-size: 0.875rem; line-height: 1.43; color: rgba(255, 255, 255, 0.9); }
+
+.chips {
+  position: absolute;
+  top: clamp(0.75rem, 2.5vw, 1.5rem);
+  left: clamp(0.75rem, 2.5vw, 1.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 .marker {
   display: block;
   margin-bottom: 0.5rem;
@@ -17,13 +82,13 @@
   font-weight: 700;
   color: var(--color-signal);
 }
-.heading { margin: 0; color: #000; }
-.body { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
-.body p { color: var(--bone-dim); font-size: 1rem; line-height: 1.5; }
-.body p:first-child { color: #000; }
+.heading { margin: 0; color: #000; max-width: 16ch; }
+.body { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 1rem; max-width: 56ch; }
+.body p { color: var(--bone-dim); font-size: 1rem; line-height: 1.55; }
+.body p:first-child { color: var(--ink-2); font-size: 1.0625rem; }
 
 .stats {
-  margin-top: 2rem;
+  margin: 1.75rem 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -31,43 +96,25 @@
 .stat {
   background: var(--surface-tint);
   border-radius: var(--r-md);
-  padding: 1.25rem 1rem;
+  padding: 1.1rem 1rem 1.15rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
 }
-.statK {
+.stat dt {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem);
   font-weight: 800;
   line-height: 1.1;
   color: #000;
+  overflow-wrap: anywhere;
 }
-.statV { font-size: 0.875rem; line-height: 1.43; color: var(--bone-dim); }
-
-.sign { margin-top: 1.75rem; display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-.signName { font-family: var(--font-display); font-size: 1.125rem; font-weight: 800; color: #000; }
-.signRole { font-size: 0.875rem; color: var(--bone-dim); }
+.stat dd { margin: 0; font-size: 0.875rem; line-height: 1.43; color: var(--bone-dim); }
 
 @media (min-width: 900px) {
-  .section {
-    min-height: clamp(760px, 92vh, 960px);
-    display: flex;
-    align-items: center;
-  }
-  /* full-section canvas: the badge is draggable anywhere, resting far left */
-  .stage {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    height: auto;
-    z-index: 3;
-    transform: translateX(-8%);
-  }
-  .content { width: 100%; }
-  .textCol { width: 50%; margin-left: 46%; position: relative; z-index: 1; }
+  .grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); column-gap: clamp(2rem, 5vw, 4.5rem); }
+  .photo { aspect-ratio: 4 / 5; }
 }
-
-@media (min-width: 1200px) {
-  .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 899px) {
+  .photo { aspect-ratio: 4 / 4.6; max-height: 560px; }
 }

@@ -1,5 +1,4 @@
-import { about } from "@/lib/content";
-import LanyardBadge from "@/components/ui/LanyardBadge";
+import { about, credentials } from "@/lib/content";
 import styles from "./MeetRahul.module.css";
 
 function headingParts(s: string) {
@@ -11,13 +10,23 @@ function headingParts(s: string) {
 export default function MeetRahul() {
   return (
     <section className={styles.section} id="about">
-      {/* full-section draggable stage — the badge roams freely across it */}
-      <div className={styles.stage}>
-        <LanyardBadge />
-      </div>
+      <div className={`shell ${styles.grid}`}>
+        <figure className={styles.photo}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/img/rahul-portrait.webp" alt="Rahul Chauhan, performance and rehabilitation coach, in the gym" />
+          <div className={styles.scrim} />
+          <figcaption className={styles.plate}>
+            <span className={styles.plateName}>{about.name}</span>
+            <span className={styles.plateRole}>{about.role}</span>
+          </figcaption>
+          <ul className={styles.chips} aria-label="Credentials">
+            {credentials.slice(0, 2).map((c) => (
+              <li key={c.k}>{c.k}</li>
+            ))}
+          </ul>
+        </figure>
 
-      <div className={`shell ${styles.content}`}>
-        <div className={styles.textCol}>
+        <div className={styles.copy}>
           <span className={styles.marker}>{about.lead}</span>
           <h2 className={`t-h2 ${styles.heading}`}>{headingParts(about.heading)}</h2>
           <div className={styles.body}>
@@ -26,19 +35,14 @@ export default function MeetRahul() {
             ))}
           </div>
 
-          <div className={styles.stats}>
+          <dl className={styles.stats}>
             {about.stats.map((s) => (
               <div className={styles.stat} key={s.k}>
-                <span className={styles.statK}>{s.k}</span>
-                <span className={styles.statV}>{s.v}</span>
+                <dt>{s.k}</dt>
+                <dd>{s.v}</dd>
               </div>
             ))}
-          </div>
-
-          <div className={styles.sign}>
-            <span className={styles.signName}>{about.name}</span>
-            <span className={styles.signRole}>{about.role}</span>
-          </div>
+          </dl>
         </div>
       </div>
     </section>

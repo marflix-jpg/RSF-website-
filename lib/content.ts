@@ -30,6 +30,7 @@ export const whatsapp = {
 export const nav = [
   { label: "About", href: "#about" },
   { label: "Method", href: "#method" },
+  { label: "Check-ins", href: "#checkins" },
   { label: "Pricing", href: "#pricing" },
   { label: "Reviews", href: "#reviews" },
 ];
@@ -41,9 +42,15 @@ export const hero = {
   standfirst:
     "Rahul coaches people in Dubai out of pain and off plateaus. He works out why it's happening, then fixes it for good.",
   primaryCta: "Message Rahul",
+  // Silent looping background for the hero card. Put the compressed clip in
+  // /public/video/ and set the path. Empty = the still photo is used.
+  loop: "", // PLACEHOLDER e.g. "/video/hero-loop.mp4"
+  still: "/img/rahul-portrait.webp",
   // Horizontal 16:9 VSL. Empty src shows the production state.
   vsl: {
-    src: "", // ⚠ PLACEHOLDER — /video/vsl.mp4 or a Mux/YouTube URL
+    heading: "See how Rahul works",
+    sub: "A short film on how he finds the cause before he writes a single exercise.",
+    src: "", // PLACEHOLDER /video/vsl.mp4 (compressed)
     poster: "/img/rahul-portrait.webp",
     runtime: "90 sec",
     label: "Watch Rahul explain",
@@ -220,49 +227,16 @@ export const packages = {
 };
 
 /* ── RESULTS & TESTIMONIALS ─────────────────────────────────────────────── */
-// ⚠ PLACEHOLDER — real before/afters + outcomes replace these.
+// Before/after pairs. Drop the photos in /assets/before-after/ and tell Claude:
+// it compresses them into /public/img/results/ and fills this list. The
+// Results section does not render at all while this list is empty.
+export type ResultPair = { tag: string; caption: string; before: string; after: string };
 export const results = {
   lead: "Results",
   heading: "The chain, changed.",
-  tiles: [
-    { tag: "Rehab", outcome: "Knee pain gone", detail: "Twelve weeks, back to running pain-free", img: "" },
-    { tag: "Recomposition", outcome: "Minus 9kg, stronger", detail: "Lost fat while every lift went up", img: "" },
-    { tag: "Performance", outcome: "Deadlift up 40kg", detail: "No back flare-ups, the cause came first", img: "" },
-    { tag: "Posture", outcome: "Desk neck resolved", detail: "Daily headaches stopped inside eight weeks", img: "" },
-  ],
+  pairs: [] as ResultPair[],
 };
 
-export const testimonials = {
-  lead: "Client notes",
-  heading: "What clients say after the *first month*.",
-  // Real testimonials from Rahul's client notes.
-  items: [
-    {
-      quote:
-        "I'd been nursing the same knee for almost two years, stretching the exact spot that hurt. Turns out that wasn't the problem at all. Rahul found it in the first session. A few weeks later I was running again without even thinking about it, which I honestly didn't expect.",
-      name: "David Wiles",
-      meta: "Recreational runner · Rehab",
-      duration: "6 weeks",
-      rating: 5,
-    },
-    {
-      quote:
-        "Every coach I'd had just handed me a program on day one. Rahul actually watched me move first, and my overhead position was a mess. He rebuilt it properly instead of piling weight on top, and my snatch has never felt this solid.",
-      name: "Mohammed Husain",
-      meta: "CrossFit athlete · Strength",
-      duration: "10 weeks",
-      rating: 5,
-    },
-    {
-      quote:
-        "I was really nervous about lifting again after having my daughter. Rahul never rushed it. We started lighter than I expected and only added load when I was genuinely ready. Three months in and I feel stronger than I did before pregnancy.",
-      name: "Sarah Ahmed",
-      meta: "Postnatal recovery · Rehab & Recomp",
-      duration: "12 weeks",
-      rating: 5,
-    },
-  ],
-};
 
 /* ── MEET RAHUL (about) ─────────────────────────────────────────────────── */
 export const about = {
@@ -295,4 +269,27 @@ export const footer = {
   blurb: "Performance and rehabilitation coaching in Dubai. Find the cause, then fix it.",
   credentials: ["MSc Sports Science", "NSCA-CSCS", "Dubai, UAE"],
   copyright: `© ${new Date().getFullYear()} Rahul Sports Fitness.`,
+};
+
+/* ── WEEKLY CHECK-INS (existing clients) ────────────────────────────────── */
+// Copy is lifted from Rahul's own forms.app check-in and the Method steps.
+export const checkins = {
+  lead: "Weekly check-ins",
+  heading: "A weekly check-in that keeps the plan honest.",
+  body: "Take a moment to reflect on your progress this week. This check-in helps me better support you in reaching your goals.",
+  cta: "Start this week's check-in",
+  ctaNote: "For current clients",
+  formUrl: "https://go.forms.app/form/6adcb66a6ce5d988c1671edd",
+  tiles: {
+    time: { big: "3 min", label: "Takes about three minutes." },
+    adjust: {
+      title: "Adjusted before it goes wrong",
+      body: "I track range, load and recovery and adjust the plan before a plateau or a flare-up happens, not after.",
+    },
+    measured: {
+      title: "Measured, not assumed",
+      body: "Re-assessment on a set schedule, so progress is measured, not assumed. Same tests, same standards, tracked over time.",
+    },
+    personal: "Replies personally",
+  },
 };

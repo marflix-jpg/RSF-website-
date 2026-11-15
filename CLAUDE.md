@@ -53,3 +53,13 @@ Do not "improve" these values by eye.
 
 ## Skills installed (`.agents/skills/`) — use them
 liquid-glass, frontend-design, impeccable, GSAP, Three.js, Emil Kowalski, Vercel.
+
+## Content sources (added Nov 2026)
+- **Reviews** are REAL Google Maps reviews, verbatim, in `lib/google-reviews.json`
+  (scraped with the Apify `compass/google-maps-reviews-scraper`). Never reword,
+  trim or invent reviews. To refresh, re-run the scraper and rewrite that file.
+- **Results** (before/after) renders only when `results.pairs` in `content.ts` has
+  entries; raw photos go in `assets/before-after/`, compressed ones in `public/img/results/`.
+- **Raw media** lives in `assets/` (git-ignored). Compress with ffmpeg into `public/video` / `public/img`.
+- **Check-in form** (`checkins.formUrl`) is Rahul's forms.app weekly client check-in, for existing clients.
+- The 3D lanyard badge was removed; About is a photo card.

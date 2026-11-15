@@ -83,46 +83,6 @@
 
 .ctaRow { margin-top: 1.75rem; }
 
-/* ── Play chip, bottom right of the card ─────────────────────────────────── */
-.vsl {
-  position: absolute;
-  z-index: 2;
-  right: clamp(1rem, 0.2rem + 2.4vw, 2.5rem);
-  bottom: clamp(1rem, 0.2rem + 2.4vw, 2.5rem);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 10px 18px 10px 10px;
-  border: none;
-  border-top: 1px solid var(--glass-edge);
-  border-bottom: 1px solid var(--glass-edge);
-  border-radius: var(--r-pill);
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: inset 0 0 40px var(--glass-inset);
-  color: #fff;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.25s var(--ease-out), transform 0.16s var(--ease-out);
-}
-.vsl:hover { background: rgba(255, 255, 255, 0.3); }
-.vsl:active { transform: scale(0.97); }
-
-.play {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--color-signal);
-  color: var(--surface-tint);
-  flex: none;
-}
-.vslText { display: flex; flex-direction: column; line-height: 1.2; }
-.vslLabel { font-size: 0.875rem; font-weight: 600; }
-.vslRuntime { font-size: 0.75rem; color: rgba(255, 255, 255, 0.78); }
-
 /* ── Credentials, as tinted pills under the card ─────────────────────────── */
 .creds {
   display: flex;
@@ -143,64 +103,12 @@
 .credK { font-weight: 700; color: var(--color-signal-deep); white-space: nowrap; }
 .credV { color: var(--bone-dim); }
 
-/* ── VSL dialog ──────────────────────────────────────────────────────────── */
-.dialog {
-  width: min(960px, 92vw);
-  padding: 0;
-  border: none;
-  border-radius: var(--r-lg);
-  background: transparent;
-  overflow: visible;
-}
-.dialog::backdrop { background: rgba(11, 14, 14, 0.72); backdrop-filter: blur(6px); }
-.dialogInner {
-  position: relative;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  background: #000;
-  aspect-ratio: 16 / 9;
-}
-.dialogInner video { width: 100%; height: 100%; object-fit: contain; }
-.close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.92);
-  color: #000;
-  cursor: pointer;
-}
-.soon {
-  display: grid;
-  place-items: center;
-  gap: 0.6rem;
-  height: 100%;
-  padding: 2rem;
-  text-align: center;
-  color: #fff;
-  background: var(--ink-soft);
-}
-.soon b { font-size: 1.125rem; font-weight: 700; }
-.soon span { color: #9fb0b0; font-size: 0.9rem; }
-.soon code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.85em;
-  color: var(--color-signal);
-}
-
 @media (max-width: 640px) {
-  .card { min-height: 571px; align-items: flex-end; padding-bottom: 6.5rem; }
+  .card { min-height: 571px; align-items: flex-end; }
   .scrim {
     background:
       linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.8) 100%),
       rgba(0, 0, 0, 0.2);
   }
   .sub { max-width: none; margin-top: 1rem; }
-  .vsl { left: clamp(1rem, 4vw, 2rem); right: auto; padding-right: 16px; }
 }

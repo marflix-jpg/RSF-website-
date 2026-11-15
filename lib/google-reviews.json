@@ -1,0 +1,89 @@
+{
+  "source": "Google Maps",
+  "placeUrl": "https://maps.app.goo.gl/rJixaagfJvSpGAQJ6?g_st=ic",
+  "rating": 5,
+  "count": 10,
+  "fetchedAt": "2026-11-15",
+  "reviews": [
+    {
+      "name": "sandesh rai",
+      "text": "Rahul is an excellent coach and athlete himself, with strong knowledge and expertise in rehab, prehab, mobility, strength, and conditioning. If you’re looking for an all-in-one coach who understands training, performance, and injury prevention, he’s definitely the guy to go to. Highly recommended!",
+      "stars": 5,
+      "date": "2026-11-13T05:43:47.330Z",
+      "localGuide": false,
+      "reviewerReviews": 4
+    },
+    {
+      "name": "Saptarshi",
+      "text": "Excellent experience! Professional, welcoming, and truly dedicated to quality service. Highly recommended!",
+      "stars": 5,
+      "date": "2026-11-13T04:11:05.568Z",
+      "localGuide": true,
+      "reviewerReviews": 18
+    },
+    {
+      "name": "Shreya Kotiyal",
+      "text": "Fantastic experience. I wanted to improve my general physical prep for taekwondo and it really helped me.",
+      "stars": 5,
+      "date": "2026-11-11T14:05:13.724Z",
+      "localGuide": false,
+      "reviewerReviews": 3
+    },
+    {
+      "name": "Mohamed Adel",
+      "text": "Well structured program , Rahul is attentive through out the session.\nThis is my second month. I highly recommend !",
+      "stars": 5,
+      "date": "2026-11-11T13:37:15.955Z",
+      "localGuide": true,
+      "reviewerReviews": 15
+    },
+    {
+      "name": "sahil tikoo",
+      "text": "I have been training with rahul since last four years , I used to have chronic lower back pain and knee pain ! Since I started training with him his Rehab and training knowledge helped to cure the pain and improve my strength and mobility ! One of the best in UAE",
+      "stars": 5,
+      "date": "2026-11-11T12:35:40.378Z",
+      "localGuide": false,
+      "reviewerReviews": 1
+    },
+    {
+      "name": "Aditi Soni",
+      "text": "Working with Rahul has been a great experience. When I started training with him I lacked confidence and struggled with my diastasis recti.\n\nOver the last 4 months I have gained muscle and lost some inches i also noticed a huge improvement in my core strength and overall body confidence.\n\nHe focuses on understanding your body and creating the right balance of strength training mobility and core rehabilitation.\n\nI’m really happy with my progress and grateful for his guidance and support throughout this journey. Highly recommend Rahul as a personal trainer!",
+      "stars": 5,
+      "date": "2026-11-11T12:16:57.305Z",
+      "localGuide": false,
+      "reviewerReviews": 3
+    },
+    {
+      "name": "Gaurav chauhan",
+      "text": "Had a great experience working with Rahul. His fitness knowledge, expertise, and insights are truly impressive. Absolutely recommend him",
+      "stars": 5,
+      "date": "2026-11-11T11:59:50.151Z",
+      "localGuide": false,
+      "reviewerReviews": 6
+    },
+    {
+      "name": "Abdul Sami",
+      "text": "Great working with Rahul on Mobility and Tennis athletics training. Really understands what you need and professional individual.",
+      "stars": 5,
+      "date": "2026-11-11T11:58:35.702Z",
+      "localGuide": false,
+      "reviewerReviews": 1
+    },
+    {
+      "name": "Anushka Mehra",
+      "text": "I had frozen shoulder and was slightly overweight when I started training. After 6 months of training, I’ve seen great improvements in my mobility, flexibility, and overall fitness. I’m still continuing my journey and am really happy with the results! ✨✨",
+      "stars": 5,
+      "date": "2026-11-11T11:56:36.513Z",
+      "localGuide": false,
+      "reviewerReviews": 6
+    },
+    {
+      "name": "Gambheer",
+      "text": "Bro built my foundation in general physical prep for which I’m thankful to this day",
+      "stars": 5,
+      "date": "2026-11-11T11:42:51.269Z",
+      "localGuide": false,
+      "reviewerReviews": 6
+    }
+  ]
+}
