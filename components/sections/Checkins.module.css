@@ -91,6 +91,61 @@
 .dark .small { color: #b9c7c7; }
 .tint .small { color: var(--ink-3); }
 
+/* ── custom animated glyphs ──────────────────────────────────────────────── */
+.glyph {
+  position: absolute;
+  top: clamp(1.25rem, 2.6vw, 2rem);
+  left: clamp(1.25rem, 2.6vw, 2rem);
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+}
+.glyphTint { background: var(--surface-tint); color: var(--color-signal-deep); }
+.glyphDark { background: rgba(255, 255, 255, 0.08); color: var(--color-signal-bright); }
+
+/* lime tile: a looping arrow badge */
+.loopBadge {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(1.5rem, 4vw, 3rem);
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--color-lime);
+}
+.gLoop { width: 28px; height: 28px; transform-origin: 50% 50%; animation: spin 7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* EKG line draws across on a loop */
+.gPulse { width: 32px; height: 20px; }
+.gPulseLine { stroke-dasharray: 90; stroke-dashoffset: 90; animation: draw 2.6s var(--ease-io) infinite; }
+@keyframes draw {
+  0% { stroke-dashoffset: 90; }
+  55%, 100% { stroke-dashoffset: 0; }
+}
+
+/* target rings breathe */
+.gTarget { width: 30px; height: 30px; }
+.gRing { transform-origin: 50% 50%; animation: breathe 3s ease-in-out infinite; }
+.gTarget .gRing:nth-of-type(2) { animation-delay: 0.3s; }
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: inherit; }
+  50% { transform: scale(1.08); }
+}
+
+/* give the text tiles room for the glyph */
+.line, .dark { padding-top: calc(52px + clamp(1.25rem, 2.6vw, 2rem) + 0.75rem); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gLoop, .gPulseLine, .gRing { animation: none; }
+  .gPulseLine { stroke-dashoffset: 0; }
+}
+
 @media (min-width: 700px) {
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lime { grid-column: 1 / -1; }

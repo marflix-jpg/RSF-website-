@@ -3,17 +3,22 @@ import google from "@/lib/google-reviews.json";
 import { ArrowIcon } from "@/components/ui/icons";
 import styles from "./Reviews.module.css";
 
-/* Every review below is rendered exactly as Google returned it: reviewer
-   name, text, star rating, date, Local Guide flag. Nothing is added,
-   trimmed or reworded. Source: lib/google-reviews.json. */
+/* Real Google reviews, shown as two drifting glass rows. Each card shows a
+   SHORT excerpt and links out to the full review on Google. Nothing invented;
+   source is lib/google-reviews.json. */
 
 type Review = (typeof google.reviews)[number];
 
-const fmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+function excerpt(text: string, max = 150) {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  return cut.slice(0, cut.lastIndexOf(" ")).trimEnd() + "…";
+}
 
-function Stars({ n, size = 16 }: { n: number; size?: number }) {
+function Stars({ n, size = 15 }: { n: number; size?: number }) {
   return (
-    <span className={styles.stars} role="img" aria-label={`${n} out of 5 stars`}>
+    <span className={styles.stars} role="img" aria-label={`${n} out of 5`}>
       {Array.from({ length: n }).map((_, i) => (
         <Star key={i} size={size} fill="currentColor" strokeWidth={0} />
       ))}
@@ -21,7 +26,7 @@ function Stars({ n, size = 16 }: { n: number; size?: number }) {
   );
 }
 
-function GoogleG({ size = 18 }: { size?: number }) {
+function GoogleG({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
       <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" />
@@ -33,62 +38,62 @@ function GoogleG({ size = 18 }: { size?: number }) {
 }
 
 function Card({ r }: { r: Review }) {
-  const paragraphs = r.text.split("\n").filter((p) => p.trim().length > 0);
   return (
     <figure className={styles.card}>
       <div className={styles.top}>
         <span className={styles.avatar} aria-hidden="true">{r.name.trim().charAt(0).toUpperCase()}</span>
-        <div className={styles.who}>
-          <figcaption className={styles.name}>{r.name}</figcaption>
-          <span className={styles.sub}>
-            {r.localGuide ? "Local Guide · " : ""}
-            {r.reviewerReviews} {r.reviewerReviews === 1 ? "review" : "reviews"}
-          </span>
-        </div>
+        <figcaption className={styles.name}>{r.name}</figcaption>
         <GoogleG />
       </div>
-      <div className={styles.meta}>
-        <Stars n={r.stars} />
-        <time dateTime={r.date}>{fmt.format(new Date(r.date))}</time>
-      </div>
-      <blockquote className={styles.quote}>
-        {paragraphs.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </blockquote>
+      <Stars n={r.stars} />
+      <blockquote className={styles.quote}>{excerpt(r.text)}</blockquote>
+      <a className={styles.readMore} href={google.placeUrl} target="_blank" rel="noopener">
+        Read full review on Google
+      </a>
     </figure>
   );
 }
 
+function Row({ items, reverse }: { items: Review[]; reverse?: boolean }) {
+  const set = [...items, ...items];
+  return (
+    <div className={styles.row}>
+      <div className={`${styles.trackM} ${reverse ? styles.reverse : ""}`}>
+        {set.map((r, i) => (
+          <Card key={(reverse ? "b" : "a") + i} r={r} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Reviews() {
+  const all = google.reviews;
+  const half = Math.ceil(all.length / 2);
+  const rowA = all.slice(0, half);
+  const rowB = all.slice(half);
   return (
     <section className={styles.section} id="reviews">
-      <div className="shell">
-        <header className={styles.head}>
-          <span className={styles.marker}>Google reviews</span>
+      <div className={`shell ${styles.head}`}>
+        <div>
+          <span className={styles.eyebrow}>Google reviews</span>
           <h2 className={`t-h2 ${styles.heading}`}>What clients say on Google.</h2>
-        </header>
+        </div>
+        <a className={styles.agg} href={google.placeUrl} target="_blank" rel="noopener">
+          <GoogleG size={20} />
+          <span className={styles.aggScore}>{google.rating.toFixed(1)}</span>
+          <Stars n={5} size={14} />
+          <span className={styles.aggCount}>{google.count} reviews</span>
+        </a>
+      </div>
 
-        <div className={styles.columns}>
-          <aside className={styles.summary}>
-            <div className={styles.sumTop}>
-              <GoogleG size={22} />
-              <span>Google rating</span>
-            </div>
-            <div className={styles.score}>{google.rating.toFixed(1)}</div>
-            <Stars n={5} size={22} />
-            <p className={styles.count}>
-              Based on {google.count} Google reviews
-            </p>
-            <a className="btn btn--dark" href={google.placeUrl} target="_blank" rel="noopener">
-              Read them on Google
-              <ArrowIcon size={16} />
-            </a>
-          </aside>
-
-          {google.reviews.map((r) => (
-            <Card key={r.date + r.name} r={r} />
-          ))}
+      <div className={styles.band}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className={styles.bg} src="/img/rahul-portrait.webp" alt="" />
+        <div className={styles.scrim} />
+        <div className={styles.rows}>
+          <Row items={rowA} />
+          <Row items={rowB} reverse />
         </div>
       </div>
     </section>

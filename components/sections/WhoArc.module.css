@@ -1,172 +1,130 @@
-.section { position: relative; background: #fff; }
+/* Pinned scroll-scrub sequence. Sticky stage, cross-fading cards, a progress
+   rail that fills, and a giant ghost numeral behind the active card. Works the
+   same on phone and desktop; only the column layout changes. */
 
-/* tall track gives the scroll length; the sticky stage pins while stepping */
+.section { position: relative; background: #fff; }
 .track { position: relative; }
 .sticky {
   position: sticky;
   top: 0;
   height: 100vh;
+  min-height: 560px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-.inner { width: var(--shell); }
+.inner { width: var(--shell); display: grid; gap: clamp(1.5rem, 5vh, 3rem); align-content: center; }
 
-.lead { max-width: 30rem; }
-.heading { margin: 0; max-width: 14ch; color: #000; letter-spacing: normal; }
+/* ── lead + rail ─────────────────────────────────────────────────────────── */
+.eyebrow { display: block; margin-bottom: 0.5rem; font-size: 1.125rem; line-height: 1.56; font-weight: 700; color: var(--color-signal); }
+.heading { margin: 0; color: #000; max-width: 16ch; }
 .heading em { color: var(--color-signal); }
 
-@media (min-width: 900px) {
-  .inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    align-items: center;
-    column-gap: clamp(1.25rem, 2vw, 2.5rem);
-  }
-  .lead { align-self: center; justify-self: end; }
-}
-
-/* ── Arc stage ───────────────────────────────────────────────────────────── */
-.stage {
-  container-type: inline-size;
-  position: relative;
-  height: clamp(26rem, 60vh, 34rem);
-  width: 100%;
-  overflow: hidden;
-  --arc-radius: clamp(9rem, 42cqw, 24rem);
-}
-
-.arc {
+.rail { position: relative; list-style: none; margin: clamp(1.5rem, 4vh, 2.5rem) 0 0; padding: 0; display: grid; gap: 0; }
+.railTrack {
   position: absolute;
-  top: 50%;
-  width: calc(var(--arc-radius) * 2);
-  height: calc(var(--arc-radius) * 2);
-  transform: translateY(-50%);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  left: calc(26% - var(--arc-radius) * 2);
-}
-
-/* zero-size pivot the markers orbit */
-.wheel {
-  position: absolute;
-  top: 50%;
-  left: calc(26% - var(--arc-radius));
-  width: 0;
-  height: 0;
-}
-
-.markerSlot { position: absolute; top: 0; left: 0; }
-.dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
+  left: 15px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
   background: var(--line);
-  transition: background 0.25s, box-shadow 0.25s;
+  overflow: hidden;
 }
-.dotActive {
+.railFill {
+  position: absolute;
+  inset: 0;
   background: var(--color-signal);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-signal) 20%, transparent);
+  transform: scaleY(0);
+  transform-origin: top;
 }
-
-/* big orbiting numbers — active teal, the rest faded */
-.node {
-  position: absolute;
-  top: 0;
-  left: 1.7rem;
-  transform-origin: left center;
-  padding: 0;
-  background: none;
+.tick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0.6rem 0;
   border: none;
+  background: none;
   cursor: pointer;
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8cqw, 5.6rem);
-  font-weight: 800;
-  letter-spacing: normal;
-  line-height: 1;
-  color: var(--bone-faint);
+  text-align: left;
+  color: var(--bone-dim);
+  transition: color 0.25s var(--ease-out);
 }
-.nodeActive { color: var(--color-signal); }
+.tickNum {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 2px var(--line);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--bone-dim);
+  transition: box-shadow 0.25s var(--ease-out), color 0.25s, background 0.25s;
+}
+.tickLabel { font-size: 0.95rem; font-weight: 600; }
+.tickOn { color: #000; }
+.tickOn .tickNum { background: var(--color-signal); box-shadow: inset 0 0 0 2px var(--color-signal); color: var(--surface-tint); }
 
-/* active step copy, beside the arc */
-.content {
+/* ── stage ───────────────────────────────────────────────────────────────── */
+.stage { position: relative; min-height: clamp(18rem, 42vh, 24rem); }
+.ghost {
   position: absolute;
-  top: 50%;
-  right: 2rem;
-  left: 42%;
-  transform: translateY(-50%);
+  top: -0.35em;
+  right: -0.1em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(9rem, 30vh, 20rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--surface-tint);
+  pointer-events: none;
+  z-index: 0;
 }
-.iconChip {
+.card {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.1rem;
+  will-change: opacity, transform;
+}
+.chip {
   display: inline-flex;
   width: 64px;
   height: 64px;
-  margin-bottom: 1.25rem;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   color: var(--color-signal);
   background: var(--surface-tint);
 }
-.card { width: 100%; }
 .title {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3.4cqw, 2.625rem);
-  font-weight: 800;
-  letter-spacing: normal;
-  line-height: 1.14;
   margin: 0;
-  max-width: 15ch;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: normal;
   color: #000;
+  max-width: 16ch;
   text-wrap: balance;
 }
-.desc {
-  margin-top: 1rem;
-  color: var(--bone-dim);
-  max-width: 30ch;
-  line-height: 1.5;
+.desc { margin: 0; color: var(--bone-dim); font-size: 1.0625rem; line-height: 1.55; max-width: 34ch; }
+
+@media (min-width: 900px) {
+  .inner { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: center; column-gap: clamp(2rem, 5vw, 5rem); }
 }
 
-/* ── Mobile: clean stacked list (no pinned arc) ─────────────────────────── */
-.mobile { padding-block: var(--section-y); }
-.mobile .heading { max-width: 16ch; margin-bottom: clamp(1.75rem, 7vw, 2.5rem); }
-.mList { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.mItem {
-  padding: clamp(1.25rem, 5vw, 1.75rem);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-}
-.mHead { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.875rem; }
-.mHead .iconChip { margin-bottom: 0; width: 56px; height: 56px; }
-.mNum {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2rem, 10vw, 2.75rem);
-  line-height: 1;
-  letter-spacing: normal;
-  color: var(--bone-faint);
-}
-.mTitle {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 5.5vw, 1.5rem);
-  font-weight: 800;
-  letter-spacing: normal;
-  line-height: 1.2;
-  margin: 0 0 0.5rem;
-  color: #000;
-}
-
-/* narrow stages: stack copy under the arc */
-@container (max-width: 620px) {
-  .arc, .wheel { top: 40%; }
-  .content {
-    top: auto;
-    bottom: 2rem;
-    left: 1.6rem;
-    right: 1.6rem;
-    transform: none;
-  }
-}
+/* reduced motion / no JS: cards flow normally, stacked and all visible */
+.section[data-static] .track { height: auto !important; }
+.section[data-static] .sticky { position: static; height: auto; min-height: 0; padding-block: var(--section-y); }
+.section[data-static] .stage { min-height: 0; display: grid; gap: 2rem; }
+.section[data-static] .card { position: relative; inset: auto; }
+.section[data-static] .ghost { display: none; }

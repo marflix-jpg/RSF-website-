@@ -19,8 +19,8 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Vsl />
         <Reframe />
+        <Vsl />
         <MeetRahul />
         <Who />
         <Method />

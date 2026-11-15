@@ -1,88 +1,95 @@
-/* Their "Easy to start" pattern: a row of step cards, each a 64px #EDFCFC
-   circle beside a bold 16/24 title and a muted 14/20 line. Radius 16, pad 32/24. */
+/* The method as a loop: four connected steps with a rail that draws through
+   the number badges on scroll, closing on a "round again" chip. Rail is
+   horizontal on desktop, vertical on mobile; both read --p (0→1). */
 
 .section { padding-block: var(--section-y); background: #fff; }
 
-.head {
-  display: grid;
-  gap: 0.75rem;
-  margin-bottom: clamp(2rem, 5vw, 3rem);
-}
-.marker {
-  font-size: 1.125rem;
-  line-height: 1.56;
-  font-weight: 700;
-  color: var(--color-signal);
-}
+.head { max-width: 60ch; margin-bottom: clamp(2rem, 5vw, 3rem); }
+.eyebrow { display: block; margin-bottom: 0.5rem; font-size: 1.125rem; line-height: 1.56; font-weight: 700; color: var(--color-signal); }
 .heading { margin: 0; color: #000; }
-.standfirst { color: var(--bone-dim); max-width: 60ch; }
+.standfirst { margin-top: 0.75rem; color: var(--bone-dim); font-size: 1.125rem; line-height: 1.55; max-width: 48ch; }
 
-.track {
-  position: relative;
-  height: 2px;
-  background: var(--line);
-  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.fill {
-  position: absolute;
-  inset: 0;
-  background: var(--color-signal);
-  transform: scaleX(0);
-  transform-origin: left;
-}
+/* flow holds the rail + steps; --p drives the draw */
+.flow { --p: 0; position: relative; display: grid; gap: 1rem; }
 
-.steps { display: grid; gap: 8px; }
+.rail { position: absolute; background: var(--line); overflow: hidden; z-index: 0; }
+.railFill { position: absolute; inset: 0; background: var(--color-signal); transform-origin: top left; }
 
 .step {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  align-items: start;
-  column-gap: 16px;
-  row-gap: 0.25rem;
-  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  z-index: 1;
+  background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--r-md);
-  background: #fff;
+  padding: clamp(1.25rem, 2.6vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
-.num {
-  grid-row: span 2;
+.badge {
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 0.4rem;
   border-radius: 50%;
   background: var(--surface-tint);
+  color: var(--color-signal-deep);
   font-family: var(--font-display);
-  font-style: normal;
-  font-size: 1.375rem;
   font-weight: 800;
+  font-size: 1.25rem;
   line-height: 1;
-  color: var(--bone-faint);
+  box-shadow: 0 0 0 0 var(--color-signal);
 }
-.title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  line-height: 1.5;
-  font-weight: 700;
-  margin: 0;
-  color: #000;
-  align-self: end;
-}
-.body {
-  color: var(--bone-dim);
-  font-size: 0.875rem;
-  line-height: 1.43;
+.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.25; font-weight: 800; color: #000; }
+.body { margin: 0; color: var(--bone-dim); font-size: 0.9375rem; line-height: 1.5; }
+
+.loopBack {
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   align-self: start;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  background: #000;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.loopIcon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-signal);
+  color: var(--surface-tint);
 }
 
-@media (min-width: 820px) {
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ── mobile: vertical rail down the left of the stacked steps ─────────────── */
+@media (max-width: 899px) {
+  .flow { padding-left: 2rem; }
+  .rail { left: 27px; top: 28px; bottom: 44px; width: 2px; }
+  .railFill { transform: scaleY(var(--p)); }
+  .loopBack { margin-left: -2rem; align-self: stretch; justify-content: center; margin-top: 0.5rem; }
 }
-@media (min-width: 1100px) {
-  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .step { grid-template-columns: minmax(0, 1fr); row-gap: 0.5rem; }
-  .num { grid-row: auto; margin-bottom: 0.5rem; }
-  .title, .body { align-self: auto; }
+
+/* ── desktop: four across, rail runs horizontally through the badges ─────── */
+@media (min-width: 900px) {
+  .flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding-top: 0;
+  }
+  .rail {
+    left: calc(100% / 8);
+    right: calc(100% / 8);
+    top: calc(clamp(1.25rem, 2.6vw, 1.75rem) + 28px);
+    height: 2px;
+    width: auto;
+    bottom: auto;
+  }
+  .railFill { transform: scaleX(var(--p)); transform-origin: left center; }
+  .loopBack { grid-column: 1 / -1; justify-self: center; margin-top: 1.5rem; }
 }

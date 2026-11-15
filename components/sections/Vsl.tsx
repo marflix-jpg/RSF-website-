@@ -15,7 +15,6 @@ export default function Vsl() {
   const start = () => {
     if (!ready) return;
     setPlaying(true);
-    // play once the <video> has mounted
     requestAnimationFrame(() => videoRef.current?.play().catch(() => {}));
   };
 
@@ -27,33 +26,24 @@ export default function Vsl() {
           <p className={styles.sub}>{v.sub}</p>
         </header>
 
-        <div className={styles.frame}>
-          {playing && ready ? (
-            <video ref={videoRef} className={styles.media} src={v.src} poster={v.poster} controls playsInline />
-          ) : (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={styles.media} src={v.poster} alt="" />
-              <div className={styles.scrim} />
-              {ready ? (
-                <button type="button" className={styles.play} onClick={start} aria-label={`Play: ${v.label}`}>
-                  <span className={styles.disc}><PlayIcon size={26} /></span>
-                  <span className={styles.meta}>
-                    <b>{v.label}</b>
-                    <span>{v.runtime}</span>
-                  </span>
-                </button>
-              ) : (
-                <div className={styles.soon}>
-                  <span className={styles.disc}><PlayIcon size={26} /></span>
-                  <span className={styles.meta}>
-                    <b>{v.label}</b>
-                    <span>Film going live shortly</span>
-                  </span>
-                </div>
-              )}
-            </>
-          )}
+        <div className={styles.wrap}>
+          <div className={styles.frame}>
+            {playing && ready ? (
+              <video ref={videoRef} className={styles.media} src={v.src} controls playsInline />
+            ) : (
+              <button
+                type="button"
+                className={styles.placeholder}
+                onClick={start}
+                aria-label={ready ? `Play: ${v.label}` : "Film coming soon"}
+                aria-disabled={!ready}
+              >
+                <span className={styles.disc}>
+                  <PlayIcon size={26} />
+                </span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </section>
