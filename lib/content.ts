@@ -142,7 +142,7 @@ export const diagnostic = {
   sub: "Pick what's bothering you. Watch the chain trace back to the real cause.",
   // A front-facing 3D body render (transparent PNG) in public/img/ shows instead
   // of the silhouette, with the joints overlaid. Empty = silhouette.
-  bodyImage: "",
+  bodyImage: "/img/body.png",
   // kinetic chain, bottom → top
   joints: ["Ankle", "Knee", "Hip", "Lower back", "Mid-back", "Shoulder"],
   symptoms: [

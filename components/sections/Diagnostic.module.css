@@ -51,7 +51,7 @@
 .pillActive:hover { border-color: #000; }
 .pillActive .pillNum { background: var(--color-signal); color: var(--surface-tint); }
 
-/* scene — teal glass gradient panel */
+/* scene — dark glass gradient panel (black -> ink-teal) with the body set in it */
 .scene {
   position: relative;
   border-radius: var(--r-xl);
@@ -60,59 +60,68 @@
   justify-content: center;
   overflow: hidden;
   background:
-    radial-gradient(85% 70% at 16% 6%, rgba(79, 210, 210, 0.28), transparent 55%),
-    radial-gradient(95% 85% at 104% 104%, rgba(27, 188, 188, 0.22), transparent 52%),
-    linear-gradient(158deg, #ecfbfb 0%, var(--surface-tint) 52%, #def6f6 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 0 70px rgba(255, 255, 255, 0.45);
+    radial-gradient(70% 55% at 24% 6%, rgba(27, 188, 188, 0.3), transparent 55%),
+    radial-gradient(90% 80% at 108% 110%, rgba(27, 188, 188, 0.24), transparent 55%),
+    linear-gradient(160deg, #0d1e1c 0%, #081413 52%, #040b0b 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 90px rgba(27, 188, 188, 0.1);
 }
-/* soft glow pooled behind the figure */
+/* teal glow pooled behind the figure */
 .scene::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 54%;
-  width: 70%;
-  height: 78%;
+  left: 38%;
+  top: 50%;
+  width: 58%;
+  height: 72%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.6), transparent 70%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(27, 188, 188, 0.26), transparent 70%);
   pointer-events: none;
 }
-.svg { position: relative; width: min(100%, 420px); height: auto; max-height: 76vh; overflow: visible; }
-.bodyImage { filter: drop-shadow(0 24px 40px rgba(11, 60, 60, 0.28)); }
+.svg { position: relative; width: min(100%, 440px); height: auto; max-height: 78vh; overflow: visible; }
+/* body sits in the gradient: drop shadow + feet fade into the dark */
+.bodyImage {
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55));
+  -webkit-mask: linear-gradient(180deg, #000 85%, transparent 99%);
+  mask: linear-gradient(180deg, #000 85%, transparent 99%);
+}
 .tag {
   position: absolute;
   top: 1.1rem;
   left: 1.4rem;
+  z-index: 2;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--bone-dim);
+  color: rgba(255, 255, 255, 0.55);
 }
 
+/* silhouette fallback (only if no body image) */
 .body { fill: none; }
 .body circle { fill: #fff; stroke: none; }
 .limb { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; }
 .torso { fill: #fff; stroke: #fff; stroke-width: 14; stroke-linejoin: round; }
 
-.link { fill: none; stroke: var(--color-signal); stroke-width: 3; stroke-linecap: round; }
-.leader { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 4; }
-.leaderOn { stroke: var(--line-strong); }
+.link { fill: none; stroke: var(--color-signal-bright); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 5px rgba(27, 188, 188, 0.6)); }
+.leader { stroke: rgba(255, 255, 255, 0.2); stroke-width: 1; stroke-dasharray: 2 4; }
+.leaderOn { stroke: rgba(255, 255, 255, 0.45); }
 
-.dot { fill: #fff; stroke: var(--line-strong); stroke-width: 1.5; }
-.causeDot { fill: var(--color-signal); stroke: #fff; stroke-width: 3; }
-.causeRing { fill: none; stroke: var(--color-signal); stroke-width: 1.5; opacity: 0.55; }
-.feelDot { fill: #000; stroke: #fff; stroke-width: 3; }
-.feelRing { fill: none; stroke: #000; stroke-width: 1.5; opacity: 0.35; }
+.dot { fill: rgba(255, 255, 255, 0.12); stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.5; }
+.causeDot { fill: var(--color-signal); stroke: #fff; stroke-width: 2.5; }
+.causeRing { fill: none; stroke: var(--color-signal-bright); stroke-width: 1.5; opacity: 0.6; }
+.feelDot { fill: #fff; stroke: var(--color-signal); stroke-width: 2.5; }
+.feelRing { fill: none; stroke: #fff; stroke-width: 1.5; opacity: 0.4; }
 
-.label { font-family: var(--font-sans); font-size: 15px; font-weight: 500; fill: var(--bone-dim); }
-.labelOn { font-weight: 700; fill: #000; }
+.label { font-family: var(--font-sans); font-size: 15px; font-weight: 500; fill: rgba(255, 255, 255, 0.68); }
+.labelOn { font-weight: 700; fill: #fff; }
 
 .legend {
   position: absolute;
   left: 1.4rem;
   bottom: 1.1rem;
+  z-index: 2;
   display: grid;
   gap: 6px;
   margin: 0;
@@ -120,11 +129,11 @@
   list-style: none;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--ink-2);
+  color: rgba(255, 255, 255, 0.85);
 }
 .legend li { display: inline-flex; align-items: center; gap: 8px; }
 .keyFeel, .keyCause { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
-.keyFeel { background: #000; }
+.keyFeel { background: #fff; }
 .keyCause { background: var(--color-signal); }
 
 /* readout */

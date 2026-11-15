@@ -7,15 +7,18 @@ import styles from "./Diagnostic.module.css";
 
 /* Stylised body, viewBox 360 x 560. Joint nodes sit on the figure's right
    side (and the spine), labels hang in a clean gutter at x = 240. */
+// coords tuned to the real body render (public/img/body.png), placed in the
+// 380x560 viewBox at x14 y10 w177 h540. Joints sit on his left side (toward
+// the labels); mid/lower back run down the spine.
 const NODES = [
-  { x: 158, y: 500 }, // 0 Ankle
-  { x: 160, y: 388 }, // 1 Knee
-  { x: 156, y: 282 }, // 2 Hip
-  { x: 130, y: 226 }, // 3 Lower back
-  { x: 130, y: 162 }, // 4 Mid-back
-  { x: 172, y: 116 }, // 5 Shoulder
+  { x: 117, y: 507 }, // 0 Ankle
+  { x: 124, y: 388 }, // 1 Knee
+  { x: 131, y: 280 }, // 2 Hip
+  { x: 113, y: 253 }, // 3 Lower back
+  { x: 113, y: 199 }, // 4 Mid-back
+  { x: 164, y: 108 }, // 5 Shoulder
 ];
-const LABEL_X = 240;
+const LABEL_X = 250;
 
 type P = { x: number; y: number };
 // a curve from the cause to the symptom, bowing out to the right of the body
@@ -81,7 +84,7 @@ export default function Diagnostic() {
           <span className={styles.tag}>Kinetic chain</span>
           <svg
             className={styles.svg}
-            viewBox="0 0 360 560"
+            viewBox="0 0 380 560"
             role="img"
             aria-label={`${sym.label}: the real cause is ${sym.causeLabel}.`}
           >
@@ -92,10 +95,10 @@ export default function Diagnostic() {
               <image
                 href={diagnostic.bodyImage}
                 className={styles.bodyImage}
-                x={6}
-                y={4}
-                width={256}
-                height={552}
+                x={14}
+                y={10}
+                width={177}
+                height={540}
                 preserveAspectRatio="xMidYMid meet"
               />
             ) : (
