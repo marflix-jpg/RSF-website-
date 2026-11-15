@@ -44,14 +44,14 @@ export const hero = {
   primaryCta: "Message Rahul",
   // Silent looping background for the hero card. Put the compressed clip in
   // /public/video/ and set the path. Empty = the still photo is used.
-  loop: "", // PLACEHOLDER e.g. "/video/hero-loop.mp4"
-  still: "/img/rahul-portrait.webp",
+  loop: "/video/hero-loop.mp4",
+  still: "/img/hero-poster.jpg",
   // Horizontal 16:9 VSL. Empty src shows the production state.
   vsl: {
     heading: "See how Rahul works",
     sub: "A short film on how he finds the cause before he writes a single exercise.",
     src: "", // PLACEHOLDER /video/vsl.mp4 (compressed)
-    poster: "/img/rahul-portrait.webp",
+    poster: "/img/hero-poster.jpg",
     runtime: "90 sec",
     label: "Watch Rahul explain",
   },

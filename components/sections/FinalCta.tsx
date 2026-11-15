@@ -19,7 +19,7 @@ export default function FinalCta() {
         <div className={styles.card}>
           {hero.vsl.poster ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.media} src={hero.vsl.poster} alt="" />
+            <img className={styles.media} src="/img/rahul-abs.webp" alt="" />
           ) : null}
           <div className={styles.scrim} />
 

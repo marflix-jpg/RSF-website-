@@ -89,7 +89,7 @@ export default function Reviews() {
 
       <div className={styles.band}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className={styles.bg} src="/img/rahul-portrait.webp" alt="" />
+        <img className={styles.bg} src="/img/rahul-walk.webp" alt="" />
         <div className={styles.scrim} />
         <div className={styles.rows}>
           <Row items={rowA} />

@@ -7,6 +7,10 @@ import styles from "./Footer.module.css";
 export default function Footer() {
   return (
     <footer className={styles.footer}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className={styles.bg} src="/img/rahul-flex.webp" alt="" aria-hidden="true" />
+      <div className={styles.grad} />
+
       <div className={`shell ${styles.inner}`}>
         <div>
           <a href="#top" className={styles.brand} aria-label={`${site.name}, home`}>
