@@ -52,7 +52,7 @@ export default function Method() {
                     <img src={`/img/process/${pad(s.n)}.jpg`} alt="" />
                   </div>
 
-                  <a className={`${styles.arrow} backdrop-blur-md`} href="#packages" aria-label={`Step ${s.n}: ${s.title}`}>
+                  <a className={`${styles.arrow} glass-backround inset-white backdrop-blur-lg`} href="#packages" aria-label={`Step ${s.n}: ${s.title}`}>
                     <ArrowIcon size={16} />
                   </a>
 

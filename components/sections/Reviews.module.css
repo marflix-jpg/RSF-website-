@@ -66,16 +66,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* exact Enhance card: py-4 px-6, rounded-3xl, bg-white/20, blur-md,
-     border-t/b white/80, inset-white-icon */
   padding: 16px 24px;
   border-radius: var(--r-lg);
-  background: var(--glass-bg);
-  border-top: 1px solid var(--glass-edge);
-  border-bottom: 1px solid var(--glass-edge);
-  box-shadow: inset 0 0 40px var(--glass-inset);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* EXACT menu-bar glass: two-layer tint + 1px white/50 top+bottom. The blur
+     (backdrop-blur-lg, 16px) and the inset glow come from the .glass-backround
+     / .inset-white classes on the element, same as the nav. */
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   color: #fff;
 }
 .top { display: flex; align-items: center; gap: 10px; }

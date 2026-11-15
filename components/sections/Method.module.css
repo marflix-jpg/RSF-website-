@@ -58,10 +58,9 @@
   height: 36px;
   border-radius: 50%;
   color: #fff;
-  background: var(--glass-bg);
-  border-top: 1px solid var(--glass-edge);
-  border-bottom: 1px solid var(--glass-edge);
-  box-shadow: inset 0 0 40px var(--glass-inset);
+  /* exact menu-bar glass via .glass-backround / .inset-white / backdrop-blur-lg */
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   transition: transform 0.35s var(--ease-out), background 0.3s;
 }
 .card:hover .arrow { transform: translate(2px, -2px); }
