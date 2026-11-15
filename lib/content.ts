@@ -101,22 +101,22 @@ export const method = {
     {
       n: 1,
       title: "Movement assessment",
-      body: "Ankle, hip, core and shoulder screening to find the actual restriction behind your pain or plateau, not just where you feel it.",
+      body: "Ankle, hip, core and shoulder screening to find the real restriction.",
     },
     {
       n: 2,
       title: "Custom program",
-      body: "A plan built around your assessment, your goal and your schedule. Strength, mobility and rehab sequenced in the right order, not bolted together.",
+      body: "Built around your assessment, goal and schedule, in the right order.",
     },
     {
       n: 3,
       title: "Weekly check-ins",
-      body: "I track range, load and recovery and adjust the plan before a plateau or a flare-up happens, not after.",
+      body: "I adjust the plan before a plateau or a flare-up, not after.",
     },
     {
       n: 4,
       title: "Re-test & progress",
-      body: "Re-assessment on a set schedule, so progress is measured, not assumed. Same tests, same standards, tracked over time.",
+      body: "Re-assessment on a schedule, so progress is measured, not assumed.",
     },
   ],
 };

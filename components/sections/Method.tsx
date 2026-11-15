@@ -56,14 +56,18 @@ export default function Method() {
                     <ArrowIcon size={16} />
                   </a>
 
-                  {/* the folder: a masked tab + a body with its top-right rounded */}
+                  {/* the folder front panel (tab + number + body). It slides DOWN
+                      on hover to reveal the image — like opening a folder. */}
                   <div className={styles.folder}>
                     <span className={styles.tab} aria-hidden="true" />
                     <span className={styles.num}>{pad(s.n)}</span>
-                    <div className={styles.text}>
-                      <h3 className={styles.title}>{s.title}</h3>
-                      <p className={styles.body}>{s.body}</p>
-                    </div>
+                  </div>
+
+                  {/* title + description are a SEPARATE layer pinned to the bottom,
+                      so they stay put while the folder opens. */}
+                  <div className={styles.text}>
+                    <h3 className={styles.title}>{s.title}</h3>
+                    <p className={styles.body}>{s.body}</p>
                   </div>
                 </div>
               </article>
