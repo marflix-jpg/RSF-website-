@@ -16,11 +16,9 @@
 
 /* ── folder card ─────────────────────────────────────────────────────────── */
 .card {
-  --body: #0a1514;          /* deep ink-teal folder body */
   --media-h: 26%;           /* rest: thin image strip; hover opens to reveal more */
   --tab-w: clamp(132px, 52%, 168px);
 }
-.featured { --body: var(--color-lime); }
 
 .inner {
   position: relative;
@@ -73,7 +71,9 @@
   right: 0;
   top: var(--media-h);     /* rest: covers the lower ~70% */
   bottom: -45%;            /* extends past the card so the bottom stays covered */
-  background: var(--body);
+  /* frosted glass — the exact nav recipe (.glass-backround .inset-white +
+     backdrop-blur-lg in JSX); the photo frosts through it */
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-top-right-radius: 20px;
   transform: translateY(0);
   transition: transform 0.6s cubic-bezier(0.34, 1.12, 0.5, 1);
@@ -89,7 +89,8 @@
   top: -32px;
   width: var(--tab-w);
   height: 34px;
-  background: var(--body);
+  /* same frosted glass as the folder body, carved to the tab shape by the mask
+     (bg + blur come from .glass-backround + backdrop-blur-lg in JSX) */
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='32' viewBox='0 0 150 32' preserveAspectRatio='none'%3E%3Cpath d='M20 0C8.954 0 0 8.954 0 20v12h150v-2h-25.95a20 20 0 0 1-13.324-5.085L88.528 5.085A20 20 0 0 0 75.203 0Z' fill='%23000'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='32' viewBox='0 0 150 32' preserveAspectRatio='none'%3E%3Cpath d='M20 0C8.954 0 0 8.954 0 20v12h150v-2h-25.95a20 20 0 0 1-13.324-5.085L88.528 5.085A20 20 0 0 0 75.203 0Z' fill='%23000'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
 }
@@ -104,9 +105,9 @@
   font-size: clamp(2.4rem, 1.6rem + 2vw, 3.1rem);
   line-height: 1;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: #000;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.45);
 }
-.featured .num { color: var(--ink-soft); }
 
 .text {
   position: absolute;
@@ -118,10 +119,8 @@
   flex-direction: column;
   gap: 0.4rem;
 }
-.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.22; font-weight: 800; color: #fff; }
-.body { margin: 0; font-size: 0.9rem; line-height: 1.5; color: rgba(255, 255, 255, 0.72); }
-.featured .title { color: var(--ink-soft); }
-.featured .body { color: color-mix(in oklab, var(--ink-soft) 72%, transparent); }
+.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.22; font-weight: 800; color: #000; }
+.body { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--ink-2); }
 
 /* loop-back chip */
 .loopBack {
