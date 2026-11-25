@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { method } from "@/lib/content";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { RotateCcw } from "lucide-react";
 import { ArrowIcon } from "@/components/ui/icons";
 import styles from "./Method.module.css";
@@ -19,6 +19,21 @@ export default function Method() {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.card}`);
       if (reduce) { gsap.set(cards, { opacity: 1, clearProps: "transform" }); return; }
+
+      // no hover on phones and tablets: the folder opens as each card reaches
+      // the middle of the screen (a tap toggles it too)
+      const mm = gsap.matchMedia();
+      mm.add("(max-width: 1039px), (hover: none)", () => {
+        cards.forEach((card) =>
+          ScrollTrigger.create({
+            trigger: card,
+            start: "center 66%",
+            end: "center 34%",
+            onToggle: (self) => card.toggleAttribute("data-open", self.isActive),
+          }),
+        );
+        return () => cards.forEach((c) => c.removeAttribute("data-open"));
+      });
 
       gsap.from(cards, {
         opacity: 0, y: 48, scale: 0.96, duration: 0.6, ease: "power3.out", stagger: 0.1,
@@ -45,7 +60,11 @@ export default function Method() {
           {method.steps.map((s, i) => {
             const featured = i === method.steps.length - 1;
             return (
-              <article className={`${styles.card} ${featured ? styles.featured : ""}`} key={s.n}>
+              <article className={`${styles.card} ${featured ? styles.featured : ""}`} key={s.n}
+                onClick={(e) => {
+                  if (window.matchMedia("(max-width: 1039px), (hover: none)").matches) e.currentTarget.toggleAttribute("data-open");
+                }}
+              >
                 <div className={styles.inner}>
                   {/* image fills the top; the folder body sits over its lower half */}
                   <div className={styles.media}>

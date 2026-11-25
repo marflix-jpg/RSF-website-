@@ -156,31 +156,18 @@
   .card:has(:focus-visible) .num { opacity: 0; }
 }
 
-/* ── phone and tablet: no hover, so the card is only as tall as its content:
-   photo, then the folder with number, title and text stacked tightly ─────── */
+/* ── open state set by scroll or tap where there is no hover ───────────── */
+.card[data-open] .folder { transform: translateY(15%); }
+.card[data-open] .num { opacity: 0; }
+.card[data-open] .media img { transform: scale(1.06); }
+
+/* ── phone and tablet: a shorter card with a low folder (no empty gap), which
+   still slides down to open ─────────────────────────────────────────────── */
 @media (max-width: 1039px) {
-  .card { --body-mid: #dcf8f7; --body-end: #bdefee; }
-  .featured { --body-mid: #31c8c7; --body-end: #17a9aa; }
-  .grid { align-items: stretch; }
-  .inner { aspect-ratio: auto; min-height: 0; height: 100%; display: flex; flex-direction: column; background: var(--body-end); }
-  .media { position: relative; inset: auto; aspect-ratio: 10 / 9; flex: none; }
-  .folder {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    margin-top: -18px;
-    padding: 2px 20px 0;
-    background: linear-gradient(180deg, var(--body-top), var(--body-mid));
-    transition: none;
-  }
-  .num { position: static; display: block; font-size: 2.25rem; }
-  .text {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    flex: 1;
-    padding: 10px 20px 22px;
-    background: linear-gradient(180deg, var(--body-mid), var(--body-end));
-  }
+  .inner { aspect-ratio: auto; min-height: 0; height: 440px; }
+  .media { inset: 0 0 24% 0; }
+  .folder { top: calc(100% - 160px); }
+  .num { top: 2px; left: 20px; font-size: 2.25rem; }
+  .text { left: 20px; right: 20px; bottom: 18px; }
+  .card[data-open] .folder { transform: translateY(46px); }
 }

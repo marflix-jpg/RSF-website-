@@ -1,4 +1,5 @@
 import Nav from "@/components/ui/Nav";
+import Motion from "@/components/ui/Motion";
 import Hero from "@/components/sections/Hero";
 import Reframe from "@/components/sections/Reframe";
 import MeetRahul from "@/components/sections/MeetRahul";
@@ -30,6 +31,7 @@ export default function Home() {
         <FinalCta />
       </main>
       <Footer />
+      <Motion />
     </>
   );
 }
