@@ -1,64 +1,87 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { RotateCcw, Gauge, TrendingUp, type LucideIcon } from "lucide-react";
+import { useRef } from "react";
+import { Gauge, RotateCcw, TrendingUp, type LucideIcon } from "lucide-react";
 import { who } from "@/lib/content";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import styles from "./WhoArc.module.css";
 
+// one per card, in order: pain returning, stuck, back to performance
 const ICONS: LucideIcon[] = [RotateCcw, Gauge, TrendingUp];
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/* One pinned, scroll-scrubbed sequence — identical on every width. The track
-   is (count)x tall; the stage sticks for its height and the active card
-   cross-fades with the next as you scroll. No arc, no overlap. */
+/* Pinned, scroll-scrubbed video accordion. One panel per problem: as you
+   scroll, the next panel opens (widens on desktop, deepens on phone) and its
+   clip plays while the others shrink. Each title and number appears once. */
 export default function WhoArc() {
   const root = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const fillRef = useRef<HTMLSpanElement>(null);
-  const [active, setActive] = useState(0);
   const count = who.cards.length;
 
   useGSAP(
     () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const cards = gsap.utils.toArray<HTMLElement>(`.${styles.card}`);
-      if (cards.length < 2) return;
+      // still images are only fetched once the section is close
+      const stills = new IntersectionObserver(
+        (entries, io) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          root.current?.querySelectorAll("video").forEach((v) => { v.poster = v.dataset.poster ?? ""; });
+          io.disconnect();
+        },
+        { rootMargin: "1200px 0px" },
+      );
+      if (root.current) stills.observe(root.current);
 
-      // reduced motion: everything visible, no pin, no scrub
-      if (reduce) {
-        gsap.set(cards, { opacity: 1, yPercent: 0 });
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         root.current?.setAttribute("data-static", "true");
-        return;
+        return () => stills.disconnect();
       }
 
-      const op = cards.map((c) => gsap.quickSetter(c, "opacity"));
-      const ty = cards.map((c) => gsap.quickSetter(c, "yPercent"));
-      cards.forEach((_, i) => { op[i](i === 0 ? 1 : 0); ty[i](i === 0 ? 0 : 6); });
+      const panels = gsap.utils.toArray<HTMLElement>(`.${styles.panel}`);
+      const videos = panels.map((el) => el.querySelector("video"));
+      let current = 0;
+      let inView = false;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: trackRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.5,
-          onUpdate: (self) => {
-            const p = self.progress * (count - 1); // 0 .. count-1
-            // fade THROUGH blank: each card holds a plateau, then clears out
-            // before the next fades in, so two cards never overlap.
-            cards.forEach((_, i) => {
-              const d = p - i;
-              const o = gsap.utils.clamp(0, 1, 1 - (Math.abs(d) - 0.12) / 0.34);
-              op[i](o);
-              ty[i](gsap.utils.clamp(-14, 14, d * -14));
-            });
-            if (fillRef.current) fillRef.current.style.transform = `scaleY(${self.progress})`;
-            setActive(Math.round(p));
-          },
+      const sync = () => {
+        videos.forEach((v, i) => {
+          if (!v) return;
+          if (inView && i === current) v.play().catch(() => {});
+          else v.pause();
+        });
+      };
+
+      // each panel holds fully open for a while, then hands over smoothly
+      const render = (progress: number) => {
+        const raw = progress * (count - 1);
+        const base = Math.floor(raw);
+        const t = gsap.utils.clamp(0, 1, (raw - base - 0.22) / 0.56);
+        const p = base + t * t * (3 - 2 * t);
+        panels.forEach((el, i) => {
+          el.style.setProperty("--o", gsap.utils.clamp(0, 1, 1 - Math.abs(p - i)).toFixed(4));
+        });
+        const next = Math.round(p);
+        if (next !== current) {
+          current = next;
+          sync();
+        }
+      };
+
+      render(0);
+      ScrollTrigger.create({
+        trigger: trackRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate: (self) => render(self.progress),
+      });
+      ScrollTrigger.create({
+        trigger: trackRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: (self) => {
+          inView = self.isActive;
+          sync();
         },
       });
-      // a throwaway tween gives the timeline a length so scrub has something to track
-      tl.to({}, { duration: 1 });
+      return () => stills.disconnect();
     },
     { scope: root },
   );
@@ -66,9 +89,9 @@ export default function WhoArc() {
   const goTo = (index: number) => {
     const track = trackRef.current;
     if (!track) return;
+    const start = track.getBoundingClientRect().top + window.scrollY;
     const range = track.offsetHeight - window.innerHeight;
-    const top = track.offsetTop + (index / Math.max(count - 1, 1)) * range;
-    window.scrollTo({ top, behavior: "smooth" });
+    window.scrollTo({ top: start + (index / Math.max(count - 1, 1)) * range, behavior: "smooth" });
   };
 
   return (
@@ -76,42 +99,34 @@ export default function WhoArc() {
       <div className={styles.track} ref={trackRef} style={{ height: `${count * 100}vh` }}>
         <div className={styles.sticky}>
           <div className={`shell ${styles.inner}`}>
-            <div className={styles.lead}>
+            <header>
               <span className={styles.eyebrow}>{who.lead}</span>
               <h2 className={`t-h2 ${styles.heading}`}>
                 Built for people <em className="ital">done guessing</em>.
               </h2>
+            </header>
 
-              <ol className={styles.rail} aria-label="Who this is for">
-                <span className={styles.railTrack} aria-hidden="true">
-                  <span className={styles.railFill} ref={fillRef} />
-                </span>
-                {who.cards.map((c, i) => (
-                  <li key={c.title}>
-                    <button
-                      type="button"
-                      className={`${styles.tick} ${i === active ? styles.tickOn : ""}`}
-                      onClick={() => goTo(i)}
-                      aria-current={i === active ? "step" : undefined}
-                    >
-                      <span className={styles.tickNum}>{pad(i + 1)}</span>
-                      <span className={styles.tickLabel}>{c.title}</span>
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div className={styles.stage}>
-              <span className={styles.ghost} aria-hidden="true">{pad(active + 1)}</span>
+            <div className={styles.panels}>
               {who.cards.map((c, i) => {
                 const Icon = ICONS[i % ICONS.length];
                 return (
-                  <article className={styles.card} key={c.title}>
-                    <span className={styles.chip}><Icon size={24} strokeWidth={2} /></span>
+                <article
+                  className={styles.panel}
+                  key={c.title}
+                  style={{ "--o": i === 0 ? 1 : 0, "--focus": c.focus } as React.CSSProperties}
+                  onClick={() => goTo(i)}
+                >
+                  <video className={styles.media} src={c.video} data-poster={c.poster} muted loop playsInline preload="none" aria-hidden="true" />
+                  <span className={styles.scrim} aria-hidden="true" />
+                  <span className={`${styles.icon} glass-backround inset-white-icon backdrop-blur-md`} aria-hidden="true">
+                    <Icon strokeWidth={2.2} />
+                  </span>
+                  <span className={`${styles.num} glass-backround inset-white-icon backdrop-blur-md`}>{pad(i + 1)}</span>
+                  <div className={styles.copy}>
                     <h3 className={styles.title}>{c.title}</h3>
                     <p className={styles.desc}>{c.body}</p>
-                  </article>
+                  </div>
+                </article>
                 );
               })}
             </div>

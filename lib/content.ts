@@ -69,14 +69,23 @@ export const who = {
   cards: [
     {
       title: "Pain that keeps returning",
+      video: "/video/who/pain.mp4",
+      poster: "/video/who/pain.jpg",
+      focus: "50% 68%",
       body: "Knee, back or shoulder pain that rest and stretching never truly settle.",
     },
     {
       title: "Stuck despite the work",
+      video: "/video/who/stuck.mp4",
+      poster: "/video/who/stuck.jpg",
+      focus: "50% 29%",
       body: "Training hard but plateaued. Strength, physique or performance that won't move.",
     },
     {
       title: "Back to full performance",
+      video: "/video/who/return.mp4",
+      poster: "/video/who/return.jpg",
+      focus: "50% 6%",
       body: "Past an injury and ready to train hard again, without re-breaking what healed.",
     },
   ],
