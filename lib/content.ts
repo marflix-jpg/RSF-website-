@@ -243,6 +243,7 @@ export const results = {
   pairs: [
     { tag: "Client 1", caption: "Front view", before: "/img/results/1-before.webp", after: "/img/results/1-after.webp" },
     { tag: "Client 2", caption: "Front view", before: "/img/results/2-before.webp", after: "/img/results/2-after.webp" },
+    { tag: "Client 3", caption: "Front view", before: "/img/results/3-before.webp", after: "/img/results/3-after.webp" },
   ] as ResultPair[],
 };
 
