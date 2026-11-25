@@ -49,7 +49,8 @@ export default function Checkins() {
                 <div className={styles.field} key={f.label} style={{ "--v": f.fill, "--d": `${i * 0.7}s` } as React.CSSProperties}>
                   <span>{f.label}</span>
                   <span className={styles.rail}>
-                    <span className={styles.fill}><span className={styles.knob} /></span>
+                    <span className={styles.fill} />
+                    <span className={styles.carriage}><span className={styles.knob} /></span>
                   </span>
                 </div>
               ))}

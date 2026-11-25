@@ -180,14 +180,14 @@
   background: var(--_bg);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.2s var(--ease-out), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), opacity 0.2s ease;
+  transition: background 0.2s ease, transform 0.16s var(--ease-out), box-shadow 0.2s var(--ease-out), opacity 0.2s ease;
 }
-.btn svg { transition: transform 0.35s var(--ease-out); }
+.btn svg { transition: transform 0.2s var(--ease-out); }
 /* quiet lift on hover, only where there is a real pointer */
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -14px rgba(11, 14, 14, 0.5); }
   .btn:hover svg { transform: translateX(3px); }
-  #pricing article, #results li button { transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), background 0.2s, border-color 0.2s; }
+  #pricing article, #results li button { transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background 0.2s, border-color 0.2s; }
   #pricing article:hover { transform: translateY(-6px); box-shadow: 0 28px 44px -30px rgba(11, 14, 14, 0.35); }
   #results li button:hover { transform: translateX(4px); }
 }

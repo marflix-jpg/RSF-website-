@@ -28,7 +28,6 @@
   display: inline-block;
   margin-right: 0.22em;
   color: var(--bone-faint);
-  will-change: color;
 }
 .accent { color: inherit; }
 

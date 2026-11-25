@@ -37,8 +37,7 @@
   overflow: hidden;
   background: var(--ink-soft);
   box-shadow: 0 1px 2px rgba(11, 14, 14, 0.06);
-  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
-  will-change: transform;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
 /* image fills the whole card (revealed as the folder opens) */
@@ -80,8 +79,7 @@
   background: var(--body);
     border-top-right-radius: 20px;
   transform: translateY(0);
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .num { transition: opacity 0.25s ease; }
 /* the tab: a strip rising above the body top-left, carved by the exact Framer
