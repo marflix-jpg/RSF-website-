@@ -8,6 +8,7 @@ import { ArrowIcon } from "@/components/ui/icons";
 import styles from "./Method.module.css";
 
 const pad = (n: number) => String(n).padStart(2, "0");
+const STEP_IMAGES = ["assess", "program", "checkin", "retest"].map((n) => `/img/rsf/step-${n}.jpg`);
 
 export default function Method() {
   const root = useRef<HTMLElement>(null);
@@ -49,7 +50,7 @@ export default function Method() {
                   {/* image fills the top; the folder body sits over its lower half */}
                   <div className={styles.media}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/img/process/${pad(s.n)}.jpg`} alt="" />
+                    <img src={STEP_IMAGES[i]} alt="" />
                   </div>
 
                   <a className={`${styles.arrow} glass-backround inset-white backdrop-blur-lg`} href="#packages" aria-label={`Step ${s.n}: ${s.title}`}>

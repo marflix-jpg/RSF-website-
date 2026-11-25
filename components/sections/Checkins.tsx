@@ -69,7 +69,7 @@ export default function Checkins() {
           {/* photo tile */}
           <article className={`${styles.tile} ${styles.photo}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/rahul-walk.webp" alt="" />
+            <img src="/img/rsf/handstand.jpg" alt="Rahul holding a handstand on parallettes" />
             <div className={styles.scrim} />
             <span className={`${styles.glass} backdrop-blur-md`}>{t.personal}</span>
           </article>

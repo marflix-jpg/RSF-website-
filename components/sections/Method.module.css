@@ -16,24 +16,26 @@
 
 /* ── folder card ─────────────────────────────────────────────────────────── */
 .card {
-  /* uniform dark ink-teal folder front (ties into the Diagnostic scene) */
-  --body-top: #0e201e;                                           /* tab + seam */
-  --body: linear-gradient(180deg, #0e201e 0%, #081413 55%, #050d0c 100%);
-  --media-h: 26%;           /* rest: thin image strip; hover opens to reveal more */
-  --tab-w: clamp(132px, 52%, 168px);
+  /* site palette: teal tint fading into the signal teal */
+  --body-top: #edfcfc;
+  --body: linear-gradient(180deg, #edfcfc 0%, #d3f6f5 45%, #a6e9e7 100%);
+  --media-h: 54%;           /* where the folder starts at rest */
+  --tab-w: clamp(124px, 50%, 160px);
 }
-/* the one highlighted step — teal-forward, same family */
+/* the one highlighted step: full signal teal */
 .featured {
-  --body-top: #0f514e;
-  --body: linear-gradient(180deg, #0f514e 0%, #0a3533 55%, #06201f 100%);
+  --body-top: #45d3d2;
+  --body: linear-gradient(180deg, #45d3d2 0%, #1bbcbc 55%, #17a9aa 100%);
 }
 
 .inner {
   position: relative;
-  aspect-ratio: 300 / 460;
+  aspect-ratio: 300 / 480;
+  min-height: 460px;
+  width: 100%;   /* stop the min-height widening the card past its column */
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: #000;
+  background: var(--ink-soft);
   box-shadow: 0 1px 2px rgba(11, 14, 14, 0.06);
   transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
   will-change: transform;
@@ -41,16 +43,16 @@
 .card:hover .inner { transform: translateY(-6px); box-shadow: 0 32px 54px -30px rgba(11, 14, 14, 0.34); }
 
 /* image fills the whole card (revealed as the folder opens) */
-.media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.media { position: absolute; inset: 0 0 28% 0; z-index: 0; overflow: hidden; }
 .media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
+  transform: scale(1);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.3, 1);
 }
 .card:hover .media img,
-.card:focus-within .media img { transform: scale(1.12); }
+.card:focus-within .media img { transform: scale(1.05); }
 
 /* frosted-glass arrow, top-right over the image */
 .arrow {
@@ -80,14 +82,16 @@
   top: var(--media-h);     /* rest: covers the lower ~70% */
   bottom: -45%;            /* extends past the card so the bottom stays covered */
   background: var(--body);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);   /* faint lit edge */
-  border-top-right-radius: 20px;
+    border-top-right-radius: 20px;
   transform: translateY(0);
   transition: transform 0.6s cubic-bezier(0.34, 1.12, 0.5, 1);
   will-change: transform;
 }
 .card:hover .folder,
-.card:focus-within .folder { transform: translateY(22%); }
+.card:focus-within .folder { transform: translateY(15%); }
+.num { transition: opacity 0.25s ease; }
+.card:hover .num,
+.card:focus-within .num { opacity: 0; }
 /* the tab: a strip rising above the body top-left, carved by the exact Framer
    SVG mask so its right edge slopes into the body (the concave notch). */
 .tab {
@@ -104,14 +108,14 @@
 .num {
   position: absolute;
   z-index: 2;
-  top: 10px;
+  top: 4px;
   left: 22px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.4rem, 1.6rem + 2vw, 3.1rem);
+  font-size: clamp(2.2rem, 1.6rem + 1.4vw, 2.7rem);
   line-height: 1;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: #0b0e0e;
 }
 
 .text {
@@ -124,8 +128,9 @@
   flex-direction: column;
   gap: 0.4rem;
 }
-.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.22; font-weight: 800; color: #fff; }
-.body { margin: 0; font-size: 0.9rem; line-height: 1.5; color: rgba(255, 255, 255, 0.72); }
+.title { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.22; font-weight: 800; color: #0b0e0e; }
+.body { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #1f3a3a; }
+.featured .body { color: #04201f; }
 
 /* loop-back chip */
 .loopBack {
