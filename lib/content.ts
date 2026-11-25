@@ -237,7 +237,13 @@ export type ResultPair = { tag: string; caption: string; before: string; after: 
 export const results = {
   lead: "Results",
   heading: "The chain, changed.",
-  pairs: [] as ResultPair[],
+  hint: "Drag the slider to compare before and after. Individual results vary.",
+  // Rahul's clients, confirmed with permission to show. Add goal/timeframe
+  // to each caption only once Rahul supplies it.
+  pairs: [
+    { tag: "Client 1", caption: "Front view", before: "/img/results/1-before.webp", after: "/img/results/1-after.webp" },
+    { tag: "Client 2", caption: "Front view", before: "/img/results/2-before.webp", after: "/img/results/2-after.webp" },
+  ] as ResultPair[],
 };
 
 

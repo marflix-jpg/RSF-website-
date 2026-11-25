@@ -24,8 +24,8 @@ export default function Home() {
         <Method />
         <Diagnostic />
         <Checkins />
-        <Packages />
         <Results />
+        <Packages />
         <Reviews />
         <FinalCta />
       </main>
