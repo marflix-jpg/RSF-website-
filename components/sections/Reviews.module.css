@@ -37,13 +37,22 @@
   padding-block: clamp(2rem, 5vw, 3.5rem);
   background: var(--ink-soft);
 }
-/* darker photo so the white/20 glass reads as crisp frost (same as the nav
-   glass over the dark hero), with white text popping */
-.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 24% 72%; }
-.scrim { position: absolute; inset: 0; background: rgba(11, 14, 14, 0.55); }
+/* dark theme, but light enough on the photo for the glass to have something
+   to frost: black and white, with teal accents */
+.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; transform: scale(1.15); filter: grayscale(1) brightness(0.8) contrast(1.15); }
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(45% 75% at 8% 0%, rgba(27, 188, 188, 0.45), transparent 70%),
+    radial-gradient(45% 75% at 94% 100%, rgba(27, 188, 188, 0.4), transparent 70%),
+    rgba(3, 12, 12, 0.42);
+}
 
 .rows { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 24px; }
-.row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+/* NO mask / filter / opacity on any wrapper of the cards: that makes it the
+   "backdrop root" and their backdrop-filter then sees nothing behind them */
+.row { overflow: hidden; }
 
 /* the set is rendered twice; sliding exactly half loops seamlessly */
 .trackM {
@@ -67,12 +76,13 @@
   flex-direction: column;
   gap: 10px;
   padding: 16px 24px;
-  border-radius: var(--r-lg);
-  /* EXACT menu-bar glass: two-layer tint + 1px white/50 top+bottom. The blur
-     (backdrop-blur-lg, 16px) and the inset glow come from the .glass-backround
-     / .inset-white classes on the element, same as the nav. */
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  /* the call-to-action card's glass, declaration for declaration
+     (FinalCta .strip); the 12px blur is backdrop-blur-md on the element */
+  border-radius: 24px;                         /* their rounded-3xl */
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+  box-shadow: inset 0 0 40px var(--glass-inset);
   color: #fff;
 }
 .top { display: flex; align-items: center; gap: 10px; }
@@ -89,13 +99,13 @@
   font-size: 0.9375rem;
 }
 .name { font-size: 0.9375rem; font-weight: 700; color: #fff; flex: 1; min-width: 0; }
-.stars { display: inline-flex; gap: 2px; color: #fff; }
+.stars { display: inline-flex; gap: 2px; color: #ffc233; }
 .quote {
   margin: 0;
   font-size: 0.9375rem;
   line-height: 1.5;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.95);
+  color: #fff;
 }
 .readMore {
   font-size: 0.8125rem;
