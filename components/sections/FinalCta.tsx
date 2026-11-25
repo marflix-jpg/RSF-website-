@@ -18,7 +18,7 @@ export default function FinalCta() {
       <div className={`shell ${styles.inner}`}>
         <div className={styles.card}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.media} src="/img/rsf/cta-muscleup.webp" alt="" />
+          <img loading="lazy" decoding="async" className={styles.media} src="/img/rsf/cta-muscleup.webp" alt="" />
           <div className={styles.scrim} />
 
           <div className={`${styles.strip} backdrop-blur-md`}>

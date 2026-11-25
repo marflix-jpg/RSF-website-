@@ -11,7 +11,8 @@ export const site = {
   name: "Rahul Sports Fitness",
   shortName: "RSF",
   domain: "rahulsportsfitness.com",
-  url: "https://rahulsportsfitness.com",
+  // the live address; switch to a custom domain once one is bought and connected
+  url: "https://rsf-website-pearl.vercel.app",
   tagline: "Find the cause, not the pain.",
   description:
     "Dubai performance and rehabilitation coaching. We assess the whole kinetic chain, locate the real cause of your pain or plateau, and build the programme that fixes it. MSc Sports Science, NSCA-CSCS.",

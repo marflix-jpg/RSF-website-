@@ -69,10 +69,10 @@ export default function Method() {
                   {/* image fills the top; the folder body sits over its lower half */}
                   <div className={styles.media}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={STEP_IMAGES[i]} alt="" />
+                    <img src={STEP_IMAGES[i]} alt="" loading="lazy" decoding="async" />
                   </div>
 
-                  <a className={`${styles.arrow} glass-backround inset-white backdrop-blur-lg`} href="#packages" aria-label={`Step ${s.n}: ${s.title}`}>
+                  <a className={`${styles.arrow} glass-backround inset-white backdrop-blur-lg`} href="#pricing" aria-label={`Step ${s.n}: ${s.title}`}>
                     <ArrowIcon size={16} />
                   </a>
 

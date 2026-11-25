@@ -13,7 +13,7 @@ export default function MeetRahul() {
       <div className={`shell ${styles.grid}`}>
         <figure className={styles.photo}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/rsf/portrait.webp" alt="Rahul Chauhan, performance and rehabilitation coach, in the gym" />
+          <img loading="lazy" decoding="async" src="/img/rsf/portrait.webp" alt="Rahul Chauhan, performance and rehabilitation coach, in the gym" />
           <div className={styles.scrim} />
           <figcaption className={`${styles.plate} backdrop-blur-md`}>
             <span className={styles.plateName}>{about.name}</span>

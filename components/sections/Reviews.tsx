@@ -89,7 +89,7 @@ export default function Reviews() {
 
       <div className={styles.band}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className={styles.bg} src="/img/rsf/reviews-bg.jpg" alt="" />
+        <img loading="lazy" decoding="async" className={styles.bg} src="/img/rsf/reviews-bg.jpg" alt="" />
         <div className={styles.scrim} />
         <div className={styles.rows}>
           <Row items={rowA} />

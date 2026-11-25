@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={styles.bg} src="/img/rsf/footer-pose.jpg" alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className={styles.bg} src="/img/rsf/footer-pose.jpg" alt="" aria-hidden="true" />
       <div className={styles.grad} />
 
       <div className={`shell ${styles.inner}`}>
