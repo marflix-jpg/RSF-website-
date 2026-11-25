@@ -1,4 +1,4 @@
-import { finalCta, hero } from "@/lib/content";
+import { finalCta } from "@/lib/content";
 import { waLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import styles from "./FinalCta.module.css";
@@ -17,10 +17,8 @@ export default function FinalCta() {
     <section className={styles.section} id="contact">
       <div className={`shell ${styles.inner}`}>
         <div className={styles.card}>
-          {hero.vsl.poster ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.media} src="/img/rahul-abs.webp" alt="" />
-          ) : null}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={styles.media} src="/img/rahul-abs.webp" alt="" />
           <div className={styles.scrim} />
 
           <div className={`${styles.strip} backdrop-blur-md`}>

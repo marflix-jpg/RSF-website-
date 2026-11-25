@@ -46,15 +46,6 @@ export const hero = {
   // /public/video/ and set the path. Empty = the still photo is used.
   loop: "/video/hero-loop.mp4",
   still: "/img/hero-poster.jpg",
-  // Horizontal 16:9 VSL. Empty src shows the production state.
-  vsl: {
-    heading: "See how Rahul works",
-    sub: "A short film on how he finds the cause before he writes a single exercise.",
-    src: "", // PLACEHOLDER /video/vsl.mp4 (compressed)
-    poster: "/img/hero-poster.jpg",
-    runtime: "90 sec",
-    label: "Watch Rahul explain",
-  },
 };
 
 /* ── CREDENTIALS (woven, not a generic stat grid) ──────────────────────── */

@@ -58,8 +58,8 @@ export default function Method() {
 
                   {/* the folder front panel (tab + number + body). It slides DOWN
                       on hover to reveal the image — like opening a folder. */}
-                  <div className={`${styles.folder} glass-backround inset-white backdrop-blur-lg`}>
-                    <span className={`${styles.tab} glass-backround backdrop-blur-lg`} aria-hidden="true" />
+                  <div className={styles.folder}>
+                    <span className={styles.tab} aria-hidden="true" />
                     <span className={styles.num}>{pad(s.n)}</span>
                   </div>
 

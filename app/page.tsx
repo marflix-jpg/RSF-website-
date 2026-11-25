@@ -1,6 +1,5 @@
 import Nav from "@/components/ui/Nav";
 import Hero from "@/components/sections/Hero";
-import Vsl from "@/components/sections/Vsl";
 import Reframe from "@/components/sections/Reframe";
 import MeetRahul from "@/components/sections/MeetRahul";
 import Who from "@/components/sections/WhoArc";
@@ -20,7 +19,6 @@ export default function Home() {
       <main>
         <Hero />
         <Reframe />
-        <Vsl />
         <MeetRahul />
         <Who />
         <Method />
