@@ -284,14 +284,42 @@ export const checkins = {
   ctaNote: "For current clients",
   formUrl: "https://go.forms.app/form/6adcb66a6ce5d988c1671edd",
   tiles: {
-    time: { big: "3 min", label: "Takes about three minutes." },
+    time: { value: "3", unit: "min", label: "Takes about three minutes." },
+    // the three 1–10 style questions on the real forms.app check-in
+    form: {
+      fields: [
+        { label: "Progress", fill: "72%" },
+        { label: "Sleep", fill: "58%" },
+        { label: "Intensity", fill: "84%" },
+      ],
+      sent: "Sent",
+    },
+    // an example conversation, not a real client's messages
+    chat: {
+      name: "Rahul",
+      avatar: "/img/rsf/portrait.webp",
+      question: "My knee felt tight after squats today.",
+      reply: "Good catch. I'll adjust your next session.",
+      thanks: "Thank you, coach!",
+    },
     adjust: {
       title: "Adjusted before it goes wrong",
-      body: "I track range, load and recovery and adjust the plan before a plateau or a flare-up happens, not after.",
+      body: "I adjust the plan before a plateau or a flare-up, not after.",
+      forecast: "If nothing changes",
+      adjusted: "Plan adjusted",
     },
     measured: {
       title: "Measured, not assumed",
-      body: "Re-assessment on a set schedule, so progress is measured, not assumed. Same tests, same standards, tracked over time.",
+      body: "Same tests, same standards, re-checked on a schedule.",
+      first: "First test",
+      retest: "Re-test",
+      // illustrative bar heights only, not client data
+      joints: [
+        { label: "Ankle", first: "46%", retest: "78%" },
+        { label: "Hip", first: "55%", retest: "86%" },
+        { label: "Core", first: "40%", retest: "72%" },
+        { label: "Shoulder", first: "60%", retest: "92%" },
+      ],
     },
     personal: "Replies personally",
   },
