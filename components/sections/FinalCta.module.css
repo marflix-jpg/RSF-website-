@@ -65,8 +65,11 @@
 
 .reassure { margin-top: 1.25rem; font-size: 0.875rem; color: var(--ink-3); text-align: center; }
 
-/* phone: photo on top, text panel below, so the panel never hides the athlete */
+/* phone: the photo fills the whole card and the glass panel sits at the TOP,
+   because the athlete is in the lower half of the shot */
 @media (max-width: 640px) {
-  .card { min-height: 640px; }
-  .media { bottom: auto; height: 340px; object-position: 64% 70%; }
+  .card { min-height: 640px; align-items: flex-start; }
+  .media { object-position: 70% 100%; }
+  .scrim { background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0) 45%); }
+  .strip { margin: 14px; }
 }
